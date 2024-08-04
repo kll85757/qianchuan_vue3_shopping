@@ -34,7 +34,7 @@
     <div class="extra">
       <div class="container">
         <div class="slogan">
-          <a href="javascript:;">
+          <!-- <a href="javascript:;">
             <i class="iconfont icon-footer01"></i>
             <span>价格亲民</span>
           </a>
@@ -45,20 +45,20 @@
           <a href="javascript:;">
             <i class="iconfont icon-footer03"></i>
             <span>品质新鲜</span>
-          </a>
+          </a> -->
         </div>
         <!-- 版权信息 -->
         <div class="copyright">
           <p>
             <a href="javascript:;">关于我们</a>
-            <a href="javascript:;">帮助中心</a>
+            <!-- <a href="javascript:;">帮助中心</a> -->
             <a href="javascript:;">售后服务</a>
-            <a href="javascript:;">配送与验收</a>
+            <!-- <a href="javascript:;">配送与验收</a> -->
             <a href="javascript:;">商务合作</a>
             <a href="javascript:;">搜索推荐</a>
             <a href="javascript:;">友情链接</a>
           </p>
-          <p>CopyRight © 小兔鲜儿</p>
+          <p>CopyRight © 南京千川</p>
         </div>
       </div>
     </div>
