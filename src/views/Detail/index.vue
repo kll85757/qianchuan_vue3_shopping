@@ -11,6 +11,13 @@ const route = useRoute()
 const getGoods = async () => {
   const res = await getDetailAPI(route.params.id)
   good.value = res.result
+  // 替换 mainPictures 数组中的图片
+  const newImage = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQYXIkmzMNdgVDN_TwU1RMGo-EfQDBMKMpnjQ&s'
+  good.value.mainPictures = [newImage, newImage, newImage]
+
+  console.log(good.value.mainPictures)
+  console.log(good.value.mainPictures)
+  console.log(good.value.mainPictures)
 }
 getGoods()
 // 加入购物车逻辑
@@ -26,6 +33,7 @@ const countChange = (count) => {
 }
 // 3.点击加入购物车
 const cartStore = useCartStore()
+
 const add = () => {
   if (skuObj.value.skuId) {
     // 规格选择完成，触发cartStore的action
@@ -55,15 +63,17 @@ const add = () => {
       <div class="bread-container">
         <el-breadcrumb separator=">">
           <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-          <el-breadcrumb-item
+          <!-- <el-breadcrumb-item
             :to="{ path: `/category/${good.categories?.[1].id}` }"
             >{{ good.categories?.[1].name }}
           </el-breadcrumb-item>
           <el-breadcrumb-item
             :to="{ path: `/category/sub/${good.categories?.[0].id}` }"
             >{{ good.categories?.[0].name }}
-          </el-breadcrumb-item>
-          <el-breadcrumb-item>抓绒保暖，毛毛虫子儿童运动鞋</el-breadcrumb-item>
+          </el-breadcrumb-item> -->
+          <el-breadcrumb-item>生産加工用品</el-breadcrumb-item>
+          <el-breadcrumb-item>机电产品</el-breadcrumb-item>
+          <el-breadcrumb-item>产品详情</el-breadcrumb-item>
         </el-breadcrumb>
       </div>
       <!-- 商品信息 -->
@@ -74,7 +84,7 @@ const add = () => {
               <!-- 图片预览区 -->
               <goods-image :imageList="good.mainPictures"></goods-image>
               <!-- 统计数量 -->
-              <ul class="goods-sales">
+              <!-- <ul class="goods-sales">
                 <li>
                   <p>销量人气</p>
                   <p>{{ good.salesCount }}+</p>
@@ -95,10 +105,31 @@ const add = () => {
                   <p>{{ good.brand.name }}+</p>
                   <p><i class="iconfont icon-dynamic-filling"></i>品牌主页</p>
                 </li>
-              </ul>
+              </ul> -->
             </div>
             <div class="spec">
-              <!-- 商品信息区 -->
+              <p class="g-name">
+                产品名称：三菱電磁開閉器用UN-SA21 AC200V UN-SA23 AC200V
+              </p>
+              <p class="g-desc">品牌 - 三菱</p>
+              <p class="g-price">
+                <!-- <span>{{ good.oldPrice }}</span> -->
+                <!-- <span> {{ good.price }}</span> -->
+              </p>
+              <div class="g-service">
+                <dl>
+                  <dt>型号</dt>
+                  <dd>UN-SA21 AC200V UN-SA23 AC200V</dd>
+                </dl>
+                <dl>
+                  <dt>描述</dt>
+                  <dd>
+                    UN-SA21 AC200V UN-SA23 AC…
+                    <a href="javascript:;">了解详情</a>
+                  </dd>
+                </dl>
+              </div>
+              <!-- <div class="spec">
               <p class="g-name">{{ good.name }}</p>
               <p class="g-desc">{{ good.desc }}</p>
               <p class="g-price">
@@ -119,7 +150,7 @@ const add = () => {
                     <a href="javascript:;">了解详情</a>
                   </dd>
                 </dl>
-              </div>
+              </div> -->
               <!-- sku组件 -->
               <GoodsSku :goods="good" @change="skuChange"></GoodsSku>
               <!-- 数据组件 -->
@@ -127,7 +158,10 @@ const add = () => {
               <!-- 按钮组件 -->
               <div>
                 <el-button size="large" class="btn" @click="add">
-                  加入购物车
+                  下单
+                </el-button>
+                <el-button size="large" class="btn" @click="add">
+                  询价
                 </el-button>
               </div>
             </div>

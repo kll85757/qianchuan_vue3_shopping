@@ -4,17 +4,18 @@
       <dt>{{ item.name }}</dt>
       <dd>
         <template v-for="val in item.values" :key="val.name">
-          <img
+         
+          <!-- <img
             :class="{ selected: val.selected, disabled: val.disabled }"
             @click="clickSpecs(item, val)"
             v-if="val.picture"
             :src="val.picture"
-          />
+          /> -->
           <span
             :class="{ selected: val.selected, disabled: val.disabled }"
             @click="clickSpecs(item, val)"
-            v-else
-            >{{ val.name }}</span
+     
+            >规格1</span
           >
         </template>
       </dd>
