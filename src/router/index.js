@@ -7,6 +7,8 @@ import SubCategory from '@/views/SubCategory/index.vue'
 import Detail from '@/views/Detail/index.vue'
 import CartList from '@/views/CartList/index.vue'
 import BrandList from '@/views/BrandList/index.vue'
+import News from '@/views/News/index.vue'
+import AF from '@/views/AfterShopping/index.vue'
 import Checkout from '@/views/Checkout/index.vue'
 import Pay from '@/views/Pay/index.vue'
 import PayBack from '@/views/Pay/PayBack.vue'
@@ -44,6 +46,14 @@ const router = createRouter({
         {
           path: 'brandList',
           component: BrandList
+        },
+        {
+          path: 'news',
+          component: News
+        },
+        {
+          path: 'AF',
+          component: AF
         },
         {
           path: 'checkout',

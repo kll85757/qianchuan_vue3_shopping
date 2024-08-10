@@ -23,10 +23,10 @@ const categoryStore = useCategoryStore()
           <RouterLink to="/brandList">品牌中心</RouterLink>
         </li>
         <li>
-          <RouterLink to="/">新闻资讯</RouterLink>
+          <RouterLink to="/News">新闻资讯</RouterLink>
         </li>
         <li>
-          <RouterLink to="/">售后服务</RouterLink>
+          <RouterLink to="/AF">售后服务</RouterLink>
         </li>
         <!-- <li
           class="home"
