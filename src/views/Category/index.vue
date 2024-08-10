@@ -5,6 +5,21 @@ import { useCategory } from './composables/useCategory'
 
 const { categoryData } = useCategory()
 const { bannerList } = useBanner()
+
+const types = [
+    { "grade2": "8", "PID": "生産加工用品", "name": "生産加工用品" },
+    { "grade2": "14", "PID": "工事用品", "name": "工事用品" },
+    { "grade2": "27", "PID": "作业工具 ", "name": "作业工具" },
+    { "grade2": "41", "PID": "防护用品", "name": "化工环境安全用品" },
+    { "grade2": "47", "PID": "物流保管用品", "name": "物流保管用品" },
+    { "grade2": "52", "PID": "研究管理用品", "name": "研究管理用品" },
+    { "grade2": "59", "PID": "办公室", "name": "办公用品" },
+    { "grade2": "165", "PID": "科学实验器具", "name": "科学实验器具" },
+    { "grade2": "166", "PID": "季节商品", "name": "季节商品" },
+    { "grade2": "167", "PID": "电脑配件", "name": "电脑配件" },
+    { "grade2": "168", "PID": "家电", "name": "家电" },
+    { "grade2": "173", "PID": "粗糙度比较样块", "name": "粗糙度比较样块" }
+]
 </script>
 
 <template>
@@ -14,29 +29,38 @@ const { bannerList } = useBanner()
       <div class="bread-container">
         <el-breadcrumb separator=">">
           <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-          <el-breadcrumb-item>{{ categoryData.name }}</el-breadcrumb-item>
+          <el-breadcrumb-item>全部分类</el-breadcrumb-item>
+          <!-- <el-breadcrumb-item>{{ categoryData.name }}</el-breadcrumb-item> -->
         </el-breadcrumb>
       </div>
       <!-- 轮播图 -->
-      <div class="home-banner">
+      <!-- <div class="home-banner">
         <el-carousel height="500px">
           <el-carousel-item v-for="item in bannerList" :key="item.id">
             <img :src="item.imgUrl" alt="" />
           </el-carousel-item>
         </el-carousel>
-      </div>
+      </div> -->
       <div class="sub-list">
         <h3>全部分类</h3>
-        <ul>
+        <ul class="typesBox">
+          <li class="typesBlock" v-for="i in types" :key="i.grade2">
+            <RouterLink  :to="`/category/sub/${i.grade2}`">
+              <!-- <img :src="i.picture" /> -->
+              <p>{{ i.name }}</p>
+            </RouterLink>
+          </li>
+        </ul>
+        <!-- <ul>
           <li v-for="i in categoryData.children" :key="i.id">
             <RouterLink :to="`/category/sub/${i.id}`">
               <img :src="i.picture" />
               <p>{{ i.name }}</p>
             </RouterLink>
           </li>
-        </ul>
+        </ul> -->
       </div>
-      <div
+      <!-- <div
         class="ref-goods"
         v-for="item in categoryData.children"
         :key="item.id"
@@ -47,7 +71,7 @@ const { bannerList } = useBanner()
         <div class="body">
           <GoodsItem v-for="good in item.goods" :good="good" :key="good.id" />
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>

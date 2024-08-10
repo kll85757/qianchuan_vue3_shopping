@@ -121,3 +121,35 @@ ul {
   border: 0.5px solid #979797;
   margin: 10px;
 }
+.typesBlock{
+
+  display: flex;
+  align-items: center; /* 垂直居中 */
+  justify-content: center; /* 水平居中 (可选) */
+}
+.typesBox{
+  padding-bottom: 25px!important;
+
+}
+.typesBox {
+  list-style: none; /* 去掉默认的列表样式 */
+  padding: 0; /* 去掉默认的内边距 */
+  margin: 0; /* 去掉默认的外边距 */
+  display: flex; /* 使用 Flexbox 布局来排列单元格 */
+  flex-wrap: wrap; /* 允许换行 */
+}
+
+.typesBlock {
+  border: 1px solid #ccc; /* 细边框 */
+  box-sizing: border-box; /* 包括边框和内边距在内的总宽度和高度 */
+  padding: 10px; /* 内边距 */
+  margin: 5px; /* 外边距 */
+  flex: 1 1 200px; /* 使单元格可缩放，设置最小宽度 */
+  text-align: center; /* 内容居中 */
+  background-color: #f9f9f9; /* 背景色 (可选) */
+}
+
+.typesBlock a {
+  text-decoration: none; /* 去掉链接下划线 */
+  color: inherit; /* 继承父元素的字体颜色 */
+}

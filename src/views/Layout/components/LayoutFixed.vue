@@ -19,10 +19,10 @@ const categoryStore = useCategoryStore()
           <RouterLink to="/">首页</RouterLink>
         </li>
         <li>
-          <RouterLink to="/">所有产品</RouterLink>
+          <RouterLink to="/category/1005000">所有产品</RouterLink>
         </li>
         <li>
-          <RouterLink to="/">品牌中心</RouterLink>
+          <RouterLink to="/brandList">品牌中心</RouterLink>
         </li>
         <li>
           <RouterLink to="/">新闻资讯</RouterLink>

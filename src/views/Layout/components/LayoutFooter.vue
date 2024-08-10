@@ -2,13 +2,13 @@
   <footer class="app_footer">
     <!-- 联系我们 -->
     <div class="contact">
-      <div class="container">
+      <div class="container" style="text-align: center;">
         <dl>
           <dt>客户服务</dt>
           <dd><i class="iconfont icon-kefu"></i> 在线客服</dd>
           <dd><i class="iconfont icon-question"></i> 问题反馈</dd>
         </dl>
-        <dl>
+        <!-- <dl>
           <dt>关注我们</dt>
           <dd><i class="iconfont icon-weixin"></i> 公众号</dd>
           <dd><i class="iconfont icon-weibo"></i> 微博</dd>
@@ -21,11 +21,11 @@
             <span>立马下载APP</span>
             <a href="javascript:;">下载页面</a>
           </dd>
-        </dl>
+        </dl> -->
         <dl>
-          <dt>服务热线</dt>
+          <dt>热线电话</dt>
           <dd class="hotline">
-            400-0000-000 <small>周一至周日 8:00-18:00</small>
+            025-84659345 86626095
           </dd>
         </dl>
       </div>
