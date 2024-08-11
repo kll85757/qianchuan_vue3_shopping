@@ -5,6 +5,7 @@ import Home from '@/views/Home/index.vue'
 import Category from '@/views/Category/index.vue'
 import SubCategory from '@/views/SubCategory/index.vue'
 import Detail from '@/views/Detail/index.vue'
+import New from '@/views/New/index.vue'
 import CartList from '@/views/CartList/index.vue'
 import BrandList from '@/views/BrandList/index.vue'
 import News from '@/views/News/index.vue'
@@ -38,6 +39,10 @@ const router = createRouter({
         {
           path: 'detail/:id',
           component: Detail
+        },
+        {
+          path: 'new/:id',
+          component: New
         },
         {
           path: 'cartlist',

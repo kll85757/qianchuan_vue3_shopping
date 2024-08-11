@@ -59,7 +59,8 @@ const add = () => {
 2. v-if手动控制渲染时机 保证只有数据存在才渲染-->
 <template>
   <div class="xtx-goods-page">
-    <div class="container" v-if="good.details">
+    <!-- <div class="container" v-if="good.details"> -->
+    <div class="container">
       <div class="bread-container">
         <el-breadcrumb separator=">">
           <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
@@ -175,7 +176,7 @@ const add = () => {
                 </nav>
                 <div class="goods-detail">
                   <!-- 属性 -->
-                  <ul class="attrs">
+                  <!-- <ul class="attrs">
                     <li
                       v-for="item in good.details.properties"
                       :key="item.value"
@@ -183,7 +184,7 @@ const add = () => {
                       <span class="dt">{{ item.name }}</span>
                       <span class="dd">{{ item.value }}</span>
                     </li>
-                  </ul>
+                  </ul> -->
                   <!-- 图片 -->
                 </div>
               </div>

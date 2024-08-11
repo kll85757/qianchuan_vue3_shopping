@@ -29,9 +29,12 @@ const handeChangeCount = (skuId, count) => {
           <el-col :span="24" v-for="(brand, colIndex) in row" :key="colIndex">
             <div class="grid-content ep-bg-purple newsBox">
               <!-- <img :src="brand.imageUrl" alt="brand.name" /> -->
-              <p class="">{{ brand.name }}
+              
+              <RouterLink :to="`/new/000`">
+                <p class="">{{ brand.name }}
                 <span style="float: right;">{{ brand.time }}</span>
               </p>
+          </RouterLink>
             </div>
           </el-col>
         </el-row>

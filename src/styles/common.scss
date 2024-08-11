@@ -158,11 +158,30 @@ ul {
   line-height: 35px;
 }
 .newsBox{
-  height: 35px;
-  line-height: 35px;
+  height: 45px;
+  // line-height: 35px;
   text-align: start;
 }
 .newsBoxLg{
   padding: 50px 140px; 
 
+}
+.goods-item{
+  border:1px solid #eee
+}
+.newsTime{
+  color: #b4b4b4;
+  line-height: 50px;
+  text-align: right;
+}
+h2{
+  text-align: center;
+}
+.newsBox{
+  border-bottom: 0.5px solid #eee;
+  padding: 10px 15px!important;
+}
+.newsBox:hover{
+  border-bottom: 0.5px solid #e3f4ff;
+  box-shadow: 0 0 22px #eee;
 }

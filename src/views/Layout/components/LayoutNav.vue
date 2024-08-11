@@ -19,8 +19,12 @@ const confirm = () => {
           <li>
             <a href="javascript:;"
               ><i class="iconfont icon-user"></i
-              >{{ userStroe.userInfo.nickname }}</a
+              >用户00001</a
             >
+            <!-- <a href="javascript:;"
+              ><i class="iconfont icon-user"></i
+              >{{ userStroe.userInfo.nickname }}</a
+            > -->
           </li>
           <li>
             <el-popconfirm

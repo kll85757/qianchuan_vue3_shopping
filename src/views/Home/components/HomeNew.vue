@@ -47,7 +47,7 @@ const news = [
       <!-- 下面是插槽主体内容模版 -->
       <ul class="goods-list">
         <li v-for="item in news" :key="item.id">
-          <RouterLink :to="`/detail/${item.id}`">
+          <RouterLink :to="`/new/${item.id}`">
             <img :src="item.img" alt="" />
 
             <p class="name">{{ item.name }}</p>
@@ -69,7 +69,7 @@ const news = [
     width: 306px;
     height: 406px;
 
-    background: #eee;
+    background: #EEEEEE;
     transition: all 0.5s;
 
     &:hover {
