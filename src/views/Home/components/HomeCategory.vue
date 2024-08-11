@@ -170,7 +170,7 @@ const brandList = [
         }}</RouterLink>
         <!-- 弹层layer位置 -->
         <div class="layer">
-          <h4>分类推荐 <small>根据您的购买或浏览记录推荐</small></h4>
+          <!-- <h4>分类推荐 <small>根据您的购买或浏览记录推荐</small></h4> -->
           <ul>
             <li v-for="i in item.goods" :key="i.id">
               <RouterLink :to="`/detail/${i.id}`">

@@ -26,7 +26,7 @@ const handeChangeCount = (skuId, count) => {
         >
           <el-col :span="6" v-for="(brand, colIndex) in row" :key="colIndex">
             <div class="grid-content ep-bg-purple brandBox">
-              <img :src="brand.imageUrl" alt="brand.name" />
+              <!-- <img :src="brand.imageUrl" alt="brand.name" /> -->
               <p class="brandName">{{ brand.name }}</p>
             </div>
           </el-col>
