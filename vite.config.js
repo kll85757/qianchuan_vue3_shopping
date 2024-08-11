@@ -26,6 +26,8 @@ export default defineConfig({
       useSource: true,
     }),
   ],
+  base: '/qianchuan_vue3_shopping/', // 注意这里
+
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
