@@ -5,7 +5,8 @@ import router from '@/router'
 
 // 创建axios实例
 const request = axios.create({
-  baseURL: 'http://pcapi-xiaotuxian-front-devtest.itheima.net',
+  // baseURL: 'http://pcapi-xiaotuxian-front-devtest.itheima.net',
+  baseURL: 'https://cms.fhmuseum.cn',
   timeout: 10000 // 请求超时时间
 })
 
@@ -32,10 +33,10 @@ request.interceptors.response.use(
     // 401token失效处理
     // 1.清除用户数据
     // 2.跳转登录页
-    if (e.response.status === 401) {
-      userStore.clearUserInfo()
-      router.push('/login')
-    }
+    // if (e.response.status === 401) {
+    //   userStore.clearUserInfo()
+    //   router.push('/login')
+    // }
     return Promise.reject(e)
   }
 )

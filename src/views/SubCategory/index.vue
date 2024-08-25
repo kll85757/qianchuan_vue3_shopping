@@ -85,15 +85,17 @@ const goodsInfoDemo = [
 // 获取分类商品数据
 const goodList = ref([])
 const reqData = ref({
-  categoryId: route.params.id,
-  page: 1,
-  pageSize: 20,
-  sortField: 'publishTime'
+  "pageNum": 1,
+  "pageSize": 50,
+  "queryCondition": {
+    "productName": "example",
+    "categoryId": 123
+  }
 })
 const getGoodList = async () => {
   const res = await getSubCategoryListAPI(reqData.value)
-  // goodList.value = res.result.items
-  goodList.value = goodsInfoDemo
+  goodList.value = res.data.records
+  // goodList.value = goodsInfoDemo
 }
 onMounted(() => getGoodList())
 

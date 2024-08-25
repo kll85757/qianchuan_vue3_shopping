@@ -28,7 +28,8 @@ export const getSubCategoryAPI = (id) => {
 // 分类基础列表数据获取
 export const getSubCategoryListAPI = (data) => {
   return request({
-    url: '/category/goods/temporary',
+    // url: '/category/goods/temporary',
+    url: '/product/page',
     method: 'POST',
     data
   })

@@ -5,8 +5,8 @@ import HomePanel from './HomePanel.vue'
 
 const newGoodsList = ref([])
 const getNewGoods = async () => {
-  const res = await getNewGoodsAPI()
-  newGoodsList.value = res.result
+  // const res = await getNewGoodsAPI()
+  // newGoodsList.value = res.result
 }
 onMounted(() => getNewGoods())
 

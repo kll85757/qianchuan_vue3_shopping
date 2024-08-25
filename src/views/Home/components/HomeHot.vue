@@ -5,8 +5,8 @@ import { ref } from 'vue'
 
 const hotGoodsList = ref([])
 const getHotGoods = async () => {
-  const res = await getHotGoodsAPI()
-  hotGoodsList.value = res.result
+  // const res = await getHotGoodsAPI()
+  // hotGoodsList.value = res.result
 }
 getHotGoods()
 const goodsList = [
