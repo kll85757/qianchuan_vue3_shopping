@@ -3,9 +3,9 @@ import request from '@/utils/request'
 // 获取商品详情
 export const getDetailAPI = (id) => {
   return request({
-    url: '/goods',
-    params: { id }
-  })
+    url: `/product/${id}`,
+    method: 'get'
+  });
 }
 // 获取热榜商品
 /**

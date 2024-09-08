@@ -34,3 +34,20 @@ export const getSubCategoryListAPI = (data) => {
     data
   })
 }
+//品牌列表
+export function getBrandList(data) {
+  return request({
+    url: '/brand/page',
+    method: 'post',
+    data: {
+      pageNo: data.pageNo || 1,
+      pageSize: data.pageSize || 10,
+      condition: {
+        title: data.title || '',
+        categoryCode: data.categoryCode || '',
+        status: data.status || '1'
+      }
+    }
+  });
+}
+
