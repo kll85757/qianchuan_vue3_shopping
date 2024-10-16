@@ -1,48 +1,58 @@
 <script setup>
-import HomePanel from './HomePanel.vue'
-import { getSubCategoryListAPI } from '@/apis/category' // 使用正确的 API
+import { getNewGoodsAPI } from '@/apis/home'
 import { ref, onMounted } from 'vue'
+import HomePanel from './HomePanel.vue'
 
-const hotGoodsList = ref([])
-
-// 获取产品列表接口的数据，按时间排序，获取最新的4个产品
-const getHotGoods = async () => {
-  try {
-    const res = await getSubCategoryListAPI({
-      pageNo: 1,
-      pageSize: 4, // 获取最新的4个产品
-      condition: {
-        status: '1', // 只获取发布状态的产品
-        sortField: 'releaseTime', // 按发布时间排序
-        sortOrder: 'desc' // 时间倒序，最新产品在前
-      }
-    })
-    hotGoodsList.value = res.data.records // 将返回的产品记录存入 hotGoodsList
-  } catch (error) {
-    console.error('获取产品列表失败:', error)
-  }
+const newGoodsList = ref([])
+const getNewGoods = async () => {
+  // const res = await getNewGoodsAPI()
+  // newGoodsList.value = res.result
 }
+onMounted(() => getNewGoods())
 
-// 页面加载时获取数据
-onMounted(getHotGoods)
-
-</script>
+const news = [
+  {
+    id: 1,
+    img: '../src/assets/images/0001.jpg',
+    time: '2023/9/15 10:23:45',
+    name: '全球钢铁需求预计2024年将增长2.3%'
+  },
+  {
+    id: 2,
+    img: '../src/assets/images/0001.jpg',
+    time: '2023/9/12 14:30:18',
+    name: '新能源汽车带动锂电池原材料价格上涨'
+  },
+  {
+    id: 3,
+    img: '../src/assets/images/0001.jpg',
+    time: '2023/9/8 09:15:33',
+    name: '半导体芯片短缺影响工业自动化设备生产'
+  },
+  {
+    id: 4,
+    img: '../src/assets/images/0001.jpg',
+    time: '2023/9/5 16:45:22',
+    name: '石油价格波动引发化工原料成本上升'
+  },
+  {
+    id: 5,
+    img: '../src/assets/images/0001.jpg',
+    time: '2023/9/2 11:20:57',
+    name: '稀土元素供应紧张，电机制造商寻找替代方案'
+  }
+]</script>
 
 <template>
-  <HomePanel title="人气产品" sub-title="热卖产品">
+  <HomePanel title="新闻资讯" subTitle="掌握最新行业动态">
     <template #main>
-      <ul class="goods-list">
-        <!-- 通过API获取到的产品列表展示 -->
-        <li v-for="item in hotGoodsList" :key="item.id">
-          <RouterLink :to="`/detail/${item.id}`">
-            <!-- 如果有图片则显示图片，否则显示占位符 -->
-            <div class="image-placeholder">
-              <img v-if="item.pictures && item.pictures.length > 0" :src="item.pictures[0]" alt="产品图片" />
-              <div v-else class="placeholder">图片缺失</div>
-            </div>
-            <p class="name">{{ item.title }}</p>
-            <p class="desc">{{ item.categoryCode }}</p> <!-- 使用 categoryCode 来代替 code -->
-          </RouterLink>
+      <ul class="news-list">
+        <li v-for="item in news" :key="item.id">
+          <!-- <img :src="item.img" alt="产品图片"> -->
+          <div class="news-info">
+            <h3>{{ item.name }}</h3>
+            <p>{{ item.time }}</p>
+          </div>
         </li>
       </ul>
     </template>
@@ -50,51 +60,38 @@ onMounted(getHotGoods)
 </template>
 
 <style scoped lang="scss">
-.goods-list {
+.news-list {
   display: flex;
-  justify-content: space-between;
-  height: 426px;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
 
   li {
-    width: 306px;
-    height: 406px;
-    transition: all 0.5s;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    transition: all 0.3s ease;
 
     &:hover {
-      transform: translate3d(0, -3px, 0);
-      box-shadow: 0 3px 8px rgb(0 0 0 / 20%);
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     }
 
-    .image-placeholder {
-      width: 306px;
-      height: 306px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background-color: #f0f0f0; /* 占位符背景颜色 */
-    }
+    .news-info {
+      h3 {
+        font-size: 18px;
+        color: #333;
+        margin-bottom: 10px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
 
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .placeholder {
-      font-size: 20px;
-      color: #999;
-      text-align: center;
-    }
-
-    p {
-      font-size: 14px;
-      padding-top: 12px;
-      text-align: center;
-    }
-
-    .desc {
-      color: #999;
-      font-size: 18px;
+      p {
+        font-size: 14px;
+        color: #666;
+      }
     }
   }
 }

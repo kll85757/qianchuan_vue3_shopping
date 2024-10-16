@@ -10,8 +10,14 @@ import HomeProduct from '@/views/Home/components/HomeProduct.vue'
     <HomeCategory></HomeCategory>
     <HomeBanner></HomeBanner>
   </div>
-  <HomeNew></HomeNew>
-  <HomeHot></HomeHot>
-  <!-- <HomeHot></HomeHot> -->
+  <!-- <HomeHot></HomeHot>  -->
   <HomeProduct></HomeProduct>
+  <div class="row">
+    <div class="col-6">
+      <HomeNew></HomeNew>
+    </div>
+    <div class="col-6">
+      <HomeHot></HomeHot>
+    </div>
+  </div>
 </template>

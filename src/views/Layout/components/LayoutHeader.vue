@@ -13,7 +13,7 @@ const categoryStore = useCategoryStore()
         <RouterLink to="/">小兔鲜</RouterLink>
       </h1>
       <ul class="app-header-nav">
-        <li>
+        <!-- <li>
           <RouterLink to="/">首页</RouterLink>
         </li>
         <li>
@@ -27,7 +27,35 @@ const categoryStore = useCategoryStore()
         </li>
         <li>
           <RouterLink to="/AF">售后服务</RouterLink>
+        </li> -->
+        <li>
+          <RouterLink to="/">产品中心</RouterLink>
         </li>
+        <li>
+          <RouterLink to="/productAll">产品相册</RouterLink>
+        </li>
+        <li>
+          <RouterLink to="/brandArea">品牌专区</RouterLink>
+        </li>
+        <li>
+          <RouterLink to="/news">新闻资讯</RouterLink>
+        </li>
+        <li>
+          <RouterLink to="/companySummary">公司概要</RouterLink>
+        </li>
+        <li>
+          <RouterLink to="/collaboration">合作案例</RouterLink>
+        </li>
+        <li>
+          <RouterLink to="/inquiry">询问</RouterLink>
+        </li>
+        <li>
+          <RouterLink to="/contact">联系方式</RouterLink>
+        </li>
+        <li>
+          <RouterLink to="/productInfo">技术资料PDF</RouterLink>
+        </li>
+
         <!-- <li
           class="home"
           v-for="item in categoryStore.categoryList"
@@ -78,8 +106,8 @@ const categoryStore = useCategoryStore()
     z-index: 998;
 
     li {
-      margin-right: 40px;
-      
+      margin-right: 22px;
+
       text-align: center;
 
       a {

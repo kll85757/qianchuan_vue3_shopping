@@ -42,17 +42,15 @@ const news = [
 </script>
 
 <template>
-  <HomePanel title="行业资讯" subTitle="行业一手资讯">
+  <HomePanel title="产品资讯" subTitle="行业一手最新产品">
     <template #main>
-      <!-- 下面是插槽主体内容模版 -->
-      <ul class="goods-list">
+      <ul class="news-list">
         <li v-for="item in news" :key="item.id">
-          <RouterLink :to="`/new/${item.id}`">
-            <img :src="item.img" alt="" />
-
-            <p class="name">{{ item.name }}</p>
-            <p class="price">{{ item.time }}</p>
-          </RouterLink>
+          <!-- <img :src="item.img" alt="产品图片"> -->
+          <div class="news-info">
+            <h3>{{ item.name }}</h3>
+            <p>{{ item.time }}</p>
+          </div>
         </li>
       </ul>
     </template>
@@ -60,39 +58,38 @@ const news = [
 </template>
 
 <style scoped lang="scss">
-.goods-list {
+.news-list {
   display: flex;
-  justify-content: space-between;
-  height: 406px;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
 
   li {
-    width: 306px;
-    height: 406px;
-
-    background: #EEEEEE;
-    transition: all 0.5s;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    transition: all 0.3s ease;
 
     &:hover {
-      transform: translate3d(0, -3px, 0);
-      box-shadow: 0 3px 8px rgb(0 0 0 / 20%);
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     }
 
-    img {
-      width: 306px;
-      height: 306px;
-    }
+    .news-info {
+      h3 {
+        font-size: 18px;
+        color: #333;
+        margin-bottom: 10px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
 
-    p {
-      font-size: 14px;
-      padding-top: 12px;
-      text-align: center;
-      text-overflow: ellipsis;
-      overflow: hidden;
-      white-space: nowrap;
-    }
-
-    .price {
-      color: $priceColor;
+      p {
+        font-size: 14px;
+        color: #666;
+      }
     }
   }
 }
