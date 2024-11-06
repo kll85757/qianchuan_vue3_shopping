@@ -128,7 +128,7 @@ onMounted(async () => {
               <GoodsItem :good="good"></GoodsItem>
             </li>
           </ul>
-          <div class="menu news" style="width: 240px">
+          <div class="menu news" style="width: 250px">
             <h3 style="font-weight: 600">行业新闻</h3>
             <ul class="">
               <li class="menuItem2" v-for="item in news" :key="item.id">
@@ -218,7 +218,7 @@ onMounted(async () => {
 
   .spMenu {
     position: absolute;
-    top: 50px;
+    top: 110px;
     left: 300px;
   }
 
@@ -237,6 +237,7 @@ onMounted(async () => {
       padding-bottom: 10px;
       border-bottom: 1px solid #eee;
     }
+
     .menuItem {
       font-size: 16px;
       font-weight: 600;
@@ -247,6 +248,7 @@ onMounted(async () => {
       text-transform: uppercase;
       letter-spacing: 0.5px;
     }
+
     .menuItem2 {
       font-size: 16px;
       font-weight: 600;
@@ -311,21 +313,32 @@ onMounted(async () => {
     }
 
     .goods-list {
-      display: grid;
+      /* 使用 Grid 布局 */
       grid-template-columns: repeat(3, 1fr);
+      /* 三列，每列宽度相等 */
       gap: 20px;
-
-      li {
-        transition:
-          transform 0.3s ease,
-          box-shadow 0.3s ease;
-
-        &:hover {
-          transform: translateY(-5px);
-          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-      }
+      /* 控制列之间的间距 */
+      width: 610px;
+      /* 确保宽度为 100% */
+      /* 居中对齐 */
+      margin-top: 50px;
     }
+
+    .goods-list li {
+      display: inline-block;
+      list-style: none;
+      /* 去掉列表项的默认样式 */
+      padding: 0;
+      /* 去掉默认内边距 */
+      margin: 0;
+      width: 200px;
+      /* 去掉默认外边距 */
+      /* 确保宽度为100% */
+      height: auto;
+      /* 高度自动，确保撑满内容 */
+    }
+
+
   }
 }
 </style>

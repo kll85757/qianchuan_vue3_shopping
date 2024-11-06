@@ -51,3 +51,21 @@ export function getBrandList(data) {
   });
 }
 
+// 分类列表
+export function getCategoryList(data) {
+  return request({
+    url: '/category/page',
+    method: 'post',
+    data: {
+      pageNo: data.pageNo || 1,
+      pageSize: data.pageSize || 10,
+      condition: {
+        code: data.code || '',
+        name: data.name || '',
+        parentCode: data.parentCode || '',
+        groupCode: data.groupCode || ''
+      }
+    }
+  });
+}
+

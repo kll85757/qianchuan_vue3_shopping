@@ -17,10 +17,11 @@ defineProps({
 <style lang="scss" scoped>
 .goods-item {
   display: block;
-  width: 220px;
-  padding: 20px 30px;
+  width: 100%; /* 确保宽度为100% */
+  height: 100%; /* 确保高度为100% */
   text-align: center;
   transition: all 0.5s;
+  padding: 10px; /* 可选：添加内边距以增加内容的舒适度 */
 
   &:hover {
     transform: translate3d(0, -3px, 0);
@@ -28,8 +29,8 @@ defineProps({
   }
 
   img {
-    width: 160px;
-    height: 160px;
+    width: 100%;
+    height: 167px;
   }
 
   p {

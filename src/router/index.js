@@ -73,6 +73,11 @@ const router = createRouter({
           component: PayBack
         },
         {
+          path: '/qa/:section', // :section 是动态路由参数
+          component: () => import('@/views/QA/index.vue')
+        },
+           
+        {
           path: 'member',
           component: Member,
           children: [

@@ -79,6 +79,7 @@ bannerList.value = [
           <div>stu901</div>
           <div>vwx234</div>
           <div>yz5678</div>
+          <div>yz5678</div>
         </div>
       </div>
     </div>
@@ -101,23 +102,25 @@ bannerList.value = [
 
   .lists-container {
     padding: 10px;
+    height: 100%;
     background-color: #ffffff9d;
     width: 300px;
-    margin-top: 20px;
     display: flex;
     flex-direction: column;
     gap: 10px;
     position: absolute;
     right: 0;
     top: 0;
+
     .list {
       display: flex;
       flex-direction: column;
       align-items: center;
       width: 100%;
-      background-color: #fff;
+      background-color: #eee;
       border: 1px solid #eee;
       padding: 10px;
+
       h3 {
         margin-bottom: 10px;
         text-align: start;
@@ -126,10 +129,15 @@ bannerList.value = [
       }
 
       div {
-        margin: 5px 0;
+        margin: 5px 1px;
         text-align: start;
         display: block;
-        width: 100%;
+        width: 200px;
+        border-bottom: 1px solid #d1d1d1;
+        text-overflow:ellipsis;overflow:hidden;
+        word-break:break-all; 
+        word-wrap:break-word;
+        white-space:nowrap;
       }
     }
   }

@@ -59,11 +59,11 @@ const load = async () => {
 <template>
   <div class="container">
     <div class="sub-container">
-      <el-tabs v-model="reqData.queryCondition.sortField" @tab-change="tabChange">
+      <!-- <el-tabs v-model="reqData.queryCondition.sortField" @tab-change="tabChange">
         <el-tab-pane label="最新商品" name="publishTime"></el-tab-pane>
         <el-tab-pane label="最高人气" name="orderNum"></el-tab-pane>
         <el-tab-pane label="评论最多" name="evaluateNum"></el-tab-pane>
-      </el-tabs>
+      </el-tabs> -->
       <div
         class="body"
         v-infinite-scroll="load"

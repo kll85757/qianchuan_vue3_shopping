@@ -10,7 +10,7 @@ const categoryStore = useCategoryStore()
   <header class="app-header">
     <div class="container">
       <h1 class="logo">
-        <RouterLink to="/">小兔鲜</RouterLink>
+        <RouterLink to="/"></RouterLink>
       </h1>
       <ul class="app-header-nav">
         <!-- <li>
@@ -29,31 +29,50 @@ const categoryStore = useCategoryStore()
           <RouterLink to="/AF">售后服务</RouterLink>
         </li> -->
         <li>
-          <RouterLink to="/category/sub/14">产品中心</RouterLink>
+          <RouterLink to="/category/sub/14">产品中心
+            <span>Product</span>
+          </RouterLink>
         </li>
         <li>
-          <RouterLink to="/category/1005000">产品相册</RouterLink>
+          <RouterLink to="/category/1005000">产品相册
+            <span>Ablum</span>
+          </RouterLink>
         </li>
         <li>
-          <RouterLink to="/brandList">品牌专区</RouterLink>
+          <RouterLink to="/brandList">品牌专区
+            <span>Brand</span>
+          </RouterLink>
         </li>
         <li>
-          <RouterLink to="/news">新闻资讯</RouterLink>
+          <RouterLink to="/news">新闻资讯
+            <span>News</span>
+          </RouterLink>
         </li>
         <li>
-          <RouterLink to="/companySummary">公司概要</RouterLink>
+          <RouterLink to="/companySummary">公司概要
+            <span>Company</span>
+          </RouterLink>
         </li>
         <li>
-          <RouterLink to="/collaboration">合作案例</RouterLink>
+          <RouterLink to="/collaboration">合作案例
+            <span>Cooperation</span>
+          </RouterLink>
         </li>
         <li>
-          <RouterLink to="/inquiry">询问</RouterLink>
+          <RouterLink to="/inquiry">咨询
+            <span>Consultation</span>
+          </RouterLink>
         </li>
         <li>
-          <RouterLink to="/contact">联系方式</RouterLink>
+          <RouterLink to="/contact">联系方式
+            <span>Contact</span>
+
+          </RouterLink>
         </li>
         <li>
-          <RouterLink to="/productInfo">技术资料PDF</RouterLink>
+          <RouterLink to="/productInfo">技术资料PDF
+            <p>Documentation</p>
+          </RouterLink>
         </li>
 
         <!-- <li
@@ -66,12 +85,16 @@ const categoryStore = useCategoryStore()
           }}</RouterLink>
         </li> -->
       </ul>
-      <div class="search">
-        <i class="iconfont icon-search"></i>
-        <input type="text" placeholder="搜一搜" />
-      </div>
+
       <!-- 头部购物车 -->
       <!-- <LayoutCart></LayoutCart> -->
+    </div>
+    <div class="search-box">
+      <i class="iconfont icon-search"></i>
+      <div class="input-container">
+        <input type="text" placeholder="搜索品名,型号" />
+        <button type="button">搜索</button>
+      </div>
     </div>
   </header>
 </template>
@@ -93,13 +116,12 @@ const categoryStore = useCategoryStore()
       height: 132px;
       width: 100%;
       text-indent: -9999px;
-      background: url('@/assets/images/logo.png') no-repeat center 18px /
-        contain;
+      background: url('@/assets/images/logo.png') no-repeat center 18px / contain;
     }
   }
 
   .app-header-nav {
-    width: 820px;
+    width: 1020px;
     display: flex;
     padding-left: 40px;
     position: relative;
@@ -111,8 +133,7 @@ const categoryStore = useCategoryStore()
       text-align: center;
 
       a {
-        font-size: 16px;
-        line-height: 32px;
+        font-size: 12px;
         height: 32px;
         display: inline-block;
 
@@ -129,22 +150,50 @@ const categoryStore = useCategoryStore()
     }
   }
 
-  .search {
-    width: 170px;
+  .search-box {
     height: 32px;
+    margin: 0 20% 25px;
     position: relative;
-    border-bottom: 1px solid #e7e7e7;
-    line-height: 32px;
+    border: 1px solid #0083ff;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    /* 垂直居中 */
+    padding: 0 5px;
 
     .icon-search {
       font-size: 18px;
-      margin-left: 5px;
+      color: #0093ff;
+    }
+
+    .input-container {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      margin-left: 8px;
     }
 
     input {
-      width: 140px;
+      flex: 8;
       padding-left: 5px;
-      color: #666;
+      height: 100%;
+      border: none;
+      outline: none;
+      color: #0093ff;
+      font-size: 14px;
+      border-radius: 5px 0 0 5px;
+    }
+
+    button {
+      flex: 2;
+      height: 100%;
+      border: none;
+      outline: none;
+      background-color: #0083ff;
+      color: white;
+      font-size: 18px;
+      cursor: pointer;
+      border-radius: 0 5px 5px 0;
     }
   }
 

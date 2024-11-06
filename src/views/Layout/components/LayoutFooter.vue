@@ -23,41 +23,56 @@
           </dd>
         </dl> -->
         <dl>
-          <dt>热线电话</dt>
-          <dd class="hotline">
-            025-84659345 86626095
-          </dd>
+
         </dl>
       </div>
     </div>
     <!-- 其它 -->
     <div class="extra">
       <div class="container">
+
         <div class="slogan">
-          <!-- <a href="javascript:;">
-            <i class="iconfont icon-footer01"></i>
-            <span>价格亲民</span>
-          </a>
-          <a href="javascript:;">
-            <i class="iconfont icon-footer02"></i>
-            <span>物流快捷</span>
-          </a>
-          <a href="javascript:;">
-            <i class="iconfont icon-footer03"></i>
-            <span>品质新鲜</span>
-          </a> -->
+          <div>
+            <p>热线电话：</p>
+            <p>025-84659345 86626095</p>
+          </div>
+          <div>
+            <p>公司传真：</p>
+            <p>(86)025-84299530</p>
+          </div>
+          <div>
+            <p>公司邮箱：</p>
+            <p>qc84659345@163.com</p>
+          </div>
+          <div>
+            <p>公司备案号：</p>
+            <p>苏ICP备10202193号</p>
+          </div>
+          <div>
+            <p>地址：</p>
+            <p>南京市玄武区柳营100号</p>
+          </div>
+          <div>
+            <p>邮政编码：</p>
+            <p>210008</p>
+          </div>
+
+
         </div>
         <!-- 版权信息 -->
         <div class="copyright">
           <p>
-            <a href="javascript:;">关于我们</a>
-            <!-- <a href="javascript:;">帮助中心</a> -->
-            <a href="javascript:;">售后服务</a>
-            <!-- <a href="javascript:;">配送与验收</a> -->
-            <a href="javascript:;">商务合作</a>
-            <a href="javascript:;">搜索推荐</a>
-            <a href="javascript:;">友情链接</a>
+            <RouterLink to="/qa/about">关于我们</RouterLink>
+            <RouterLink to="/qa/after-service">售后服务</RouterLink>
+            <RouterLink to="/qa/business-cooperation">商务合作</RouterLink>
+            <RouterLink to="/qa/remittance-info">汇款资料</RouterLink>
+            <RouterLink to="/qa/faqs">常见问题</RouterLink>
+            <RouterLink to="/qa/privacy-statement">隐私声明</RouterLink>
+            <RouterLink to="/qa/delivery-instructions">配送说明</RouterLink>
+            <RouterLink to="/qa/purchase-release">采购发布</RouterLink>
+            <RouterLink to="/qa/business-hours">营业时间</RouterLink>
           </p>
+          <p>国内机电产品及日本原装进口工业设备仪器仪表专业供应商：南京千川机电有限公司</p>
           <p>CopyRight © 南京千川</p>
         </div>
       </div>
@@ -177,15 +192,16 @@
 
   .slogan {
     height: 178px;
-    line-height: 58px;
+    line-height: 25px;
     padding: 60px 100px;
     border-bottom: 1px solid #434343;
     display: flex;
     justify-content: space-between;
+    color: #fff;
 
     a {
-      height: 58px;
-      line-height: 58px;
+      height: 35px;
+      line-height: 25px;
       color: #fff;
       font-size: 28px;
 

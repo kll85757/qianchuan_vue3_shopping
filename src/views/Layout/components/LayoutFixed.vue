@@ -42,13 +42,22 @@ const categoryStore = useCategoryStore()
         <RouterLink to="/">专题</RouterLink>
       </div>
     </div>
+    <div>
+      <div class="search-box">
+      <i class="iconfont icon-search"></i>
+      <div class="input-container">
+        <input type="text" placeholder="搜索品名,型号" />
+        <button type="button">搜索</button>
+      </div>
+    </div>
+    </div>
   </div>
 </template>
 
 <style scoped lang="scss">
 .app-header-sticky {
   width: 100%;
-  height: 80px;
+  height: 130px;
   position: fixed;
   left: 0;
   top: 0;
@@ -99,8 +108,55 @@ const categoryStore = useCategoryStore()
   }
 }
 
+.search-box {
+    height: 32px;
+    margin: 0 20% 25px;
+    position: relative;
+    border: 1px solid #0083ff;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    /* 垂直居中 */
+    padding: 0 5px;
+
+    .icon-search {
+      font-size: 18px;
+      color: #0093ff;
+    }
+
+    .input-container {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      margin-left: 8px;
+    }
+
+    input {
+      flex: 8;
+      padding-left: 5px;
+      height: 100%;
+      border: none;
+      outline: none;
+      color: #0093ff;
+      font-size: 14px;
+      border-radius: 5px 0 0 5px;
+    }
+
+    button {
+      flex: 2;
+      height: 100%;
+      border: none;
+      outline: none;
+      background-color: #0083ff;
+      color: white;
+      font-size: 18px;
+      cursor: pointer;
+      border-radius: 0 5px 5px 0;
+    }
+  }
+
 .app-header-nav {
-  width: 820px;
+  width: 1020px;
   display: flex;
   padding-left: 40px;
   position: relative;
@@ -112,7 +168,7 @@ const categoryStore = useCategoryStore()
 
     a {
       font-size: 16px;
-      line-height: 32px;
+      // line-height: 32px;
       height: 32px;
       display: inline-block;
 
