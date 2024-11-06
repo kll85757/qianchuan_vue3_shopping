@@ -30,17 +30,42 @@ const news = [
     name: '半导体芯片短缺影响工业自动化设备生产'
   },
   {
+    id: 3,
+    img: '../src/assets/images/0001.jpg',
+    time: '2023/9/8 09:15:33',
+    name: '半导体芯片短缺影响工业自动化设备生产'
+  },
+  {
+    id: 3,
+    img: '../src/assets/images/0001.jpg',
+    time: '2023/9/8 09:15:33',
+    name: '半导体芯片短缺影响工业自动化设备生产'
+  },
+  {
+    id: 3,
+    img: '../src/assets/images/0001.jpg',
+    time: '2023/9/8 09:15:33',
+    name: '半导体芯片短缺影响工业自动化设备生产'
+  },
+  {
+    id: 3,
+    img: '../src/assets/images/0001.jpg',
+    time: '2023/9/8 09:15:33',
+    name: '半导体芯片短缺影响工业自动化设备生产'
+  },
+  {
+    id: 3,
+    img: '../src/assets/images/0001.jpg',
+    time: '2023/9/8 09:15:33',
+    name: '半导体芯片短缺影响工业自动化设备生产'
+  },
+  {
     id: 4,
     img: '../src/assets/images/0001.jpg',
     time: '2023/9/5 16:45:22',
     name: '石油价格波动引发化工原料成本上升'
   },
-  {
-    id: 5,
-    img: '../src/assets/images/0001.jpg',
-    time: '2023/9/2 11:20:57',
-    name: '稀土元素供应紧张，电机制造商寻找替代方案'
-  }
+
 ]</script>
 
 <template>
@@ -48,10 +73,10 @@ const news = [
     <template #main>
       <ul class="news-list">
         <li v-for="item in news" :key="item.id">
-          <!-- <img :src="item.img" alt="产品图片"> -->
           <div class="news-info">
             <h3>{{ item.name }}</h3>
-            <p>{{ item.time }}</p>
+
+
           </div>
         </li>
       </ul>
@@ -62,15 +87,15 @@ const news = [
 <style scoped lang="scss">
 .news-list {
   display: flex;
+  width: 48%;
+
   flex-direction: column;
-  gap: 20px;
-  padding: 20px;
+  gap: 5px;
 
   li {
     background-color: #ffffff;
-    border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    padding: 15px;
+    padding: 6px;
     transition: all 0.3s ease;
 
     &:hover {
@@ -80,9 +105,8 @@ const news = [
 
     .news-info {
       h3 {
-        font-size: 18px;
+        font-size: 16px;
         color: #333;
-        margin-bottom: 10px;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;

@@ -4,24 +4,71 @@ import { ref, onMounted } from 'vue'
 import { getSubCategoryListAPI } from '@/apis/category'
 import GoodsItem from '@/components/GoodsItem.vue'
 
+import { getBrandList } from '@/apis/category'
+
+// 定义品牌列表数据
+const brands = ref([])
+
+// 获取所有品牌
+const fetchAllBrands = async () => {
+  let pageNo = 1
+  let hasMoreData = true
+
+  // 循环请求直到获取完所有数据
+  while (hasMoreData) {
+    try {
+      const res = await getBrandList({
+        pageNo: pageNo,
+        pageSize: 10, // 每页获取10条数据
+        title: '',
+        categoryCode: '',
+        status: '1'
+      })
+
+      const currentPageBrands = res.data.records
+
+      // 将当前页的数据合并到总品牌列表中
+      brands.value = [...brands.value, ...currentPageBrands]
+
+      // 如果当前页的数据小于 pageSize，说明没有更多数据了
+      if (currentPageBrands.length < 10) {
+        hasMoreData = false
+      }
+
+      // 增加页码以获取下一页数据
+      pageNo++
+
+    } catch (error) {
+      console.error('获取品牌列表失败:', error)
+      hasMoreData = false
+    }
+  }
+
+  brands.value = brands.value.slice(0, 10);
+
+}
+
+// 页面加载时获取所有品牌
+onMounted(fetchAllBrands)
+
 // 存储三页的产品数据
 const goodsProductPage2 = ref([])
 const goodsProductPage3 = ref([])
 const goodsProductPage4 = ref([])
 
-const brands = [
-  '三菱',
-  '富士',
-  '仓敷化工 KURAKA',
-  'CEC中央电机',
-  '兴研|koken',
-  'ANELVA',
-  'OMRON',
-  '东洋技研',
-  '光阳社',
-  '七星科学',
-  'DYNALOY'
-]
+// const brands = [
+//   '三菱',
+//   '富士',
+//   '仓敷化工 KURAKA',
+//   'CEC中央电机',
+//   '兴研|koken',
+//   'ANELVA',
+//   'OMRON',
+//   '东洋技研',
+//   '光阳社',
+//   '七星科学',
+//   'DYNALOY'
+// ]
 
 const categories = [
   { id: 5, name: '接着剂' },
@@ -40,15 +87,14 @@ const news = [
     title: '实验室安全管理新规出台，保障研究人员安全',
     date: '2023-06-28'
   },
-  { id: 7, title: '3D打印技术在材料修复领域的应用', date: '2023-07-01' },
-  { id: 8, title: '量子传感器在科学实验中的应用前景', date: '2023-07-03' }
+
 ]
 // 获取指定页数和条数的产品数据
 const fetchProductData = async (page, targetList) => {
   try {
     const res = await getSubCategoryListAPI({
       pageNo: page, // 页数
-      pageSize: 6, // 每页8条数据
+      pageSize: 8, // 每页8条数据
       condition: {
         status: '1', // 只获取发布状态的产品
         sortField: 'releaseTime', // 按发布时间排序
@@ -103,7 +149,7 @@ onMounted(async () => {
           <RouterLink class="cover" to="/">
             <!-- <img v-img-lazy="'../src/assets/images/p01.png'" /> -->
             <ul class="menu">
-              <li class="menuItem" v-for="item in categories" :key="item.id">
+              <li class="menuItem" v-for="item in brands" :key="item.id">
                 <RouterLink to="/">{{ item.name }}</RouterLink>
                 <div class="layer"></div>
                 <ul>
@@ -121,6 +167,13 @@ onMounted(async () => {
                   </li>
                 </ul>
               </li>
+              <h3 style="font-weight: 600">相关新闻</h3>
+              <ul class="">
+                <li class="menuItem2" v-for="item in news" :key="item.id">
+                  <RouterLink to="/">{{ item.title }}</RouterLink>
+
+                </li>
+              </ul>
             </ul>
           </RouterLink>
           <ul class="goods-list">
@@ -128,29 +181,9 @@ onMounted(async () => {
               <GoodsItem :good="good"></GoodsItem>
             </li>
           </ul>
-          <div class="menu news" style="width: 250px">
-            <h3 style="font-weight: 600">行业新闻</h3>
-            <ul class="">
-              <li class="menuItem2" v-for="item in news" :key="item.id">
-                <RouterLink to="/">{{ item.title }}</RouterLink>
-                <div class="layer"></div>
-                <ul>
-                  <li v-for="i in item.goods" :key="i.id">
-                    <RouterLink :to="`/detail/${i.id}`">
-                      <img :src="i.picture" alt="" />
-                      <div class="info">
-                        <p class="name ellipsis-2">
-                          {{ i.name }}
-                        </p>
-                        <p class="desc ellipsis">{{ i.desc }}</p>
-                        <p class="price"><i>¥</i>{{ i.price }}</p>
-                      </div>
-                    </RouterLink>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-          </div>
+          <!-- <div class="menu news" style="width: 250px">
+
+          </div> -->
         </div>
       </template>
     </HomePanel>
@@ -233,24 +266,24 @@ onMounted(async () => {
     h3 {
       font-size: 18px;
       font-weight: bold;
-      margin-bottom: 15px;
+      margin-top: 15px;
       padding-bottom: 10px;
-      border-bottom: 1px solid #eee;
+      border-top: 1px solid #eee;
     }
 
     .menuItem {
-      font-size: 16px;
+      font-size: 12px;
       font-weight: 600;
       color: #333;
       margin-bottom: 10px;
       padding-left: 10px;
-      border-left: 3px solid #b4b4b4;
+      border-left: 3px solid #0091ff;
       text-transform: uppercase;
       letter-spacing: 0.5px;
     }
 
     .menuItem2 {
-      font-size: 16px;
+      font-size: 12px;
       font-weight: 600;
       color: #333;
       margin-bottom: 10px;
@@ -318,7 +351,7 @@ onMounted(async () => {
       /* 三列，每列宽度相等 */
       gap: 20px;
       /* 控制列之间的间距 */
-      width: 610px;
+      width: 1010px;
       /* 确保宽度为 100% */
       /* 居中对齐 */
       margin-top: 50px;
@@ -331,7 +364,7 @@ onMounted(async () => {
       padding: 0;
       /* 去掉默认内边距 */
       margin: 0;
-      width: 200px;
+      width: 235px;
       /* 去掉默认外边距 */
       /* 确保宽度为100% */
       height: auto;

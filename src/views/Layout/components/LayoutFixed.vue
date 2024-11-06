@@ -15,7 +15,7 @@ const categoryStore = useCategoryStore()
       <RouterLink class="logo" to="/" />
       <!-- 导航区域 -->
       <ul class="app-header-nav">
-        <li class="home">
+        <!-- <li class="home">
           <RouterLink to="/">首页</RouterLink>
         </li>
         <li>
@@ -29,6 +29,53 @@ const categoryStore = useCategoryStore()
         </li>
         <li>
           <RouterLink to="/AF">售后服务</RouterLink>
+        </li> -->
+
+        <li>
+          <RouterLink to="/category/sub/14">产品中心
+            <span>Product</span>
+          </RouterLink>
+        </li>
+        <li>
+          <RouterLink to="/category/1005000">产品相册
+            <span>Ablum</span>
+          </RouterLink>
+        </li>
+        <li>
+          <RouterLink to="/brandList">品牌专区
+            <span>Brand</span>
+          </RouterLink>
+        </li>
+        <li>
+          <RouterLink to="/news">新闻资讯
+            <span>News</span>
+          </RouterLink>
+        </li>
+        <li>
+          <RouterLink to="/companySummary">公司概要
+            <span>Company</span>
+          </RouterLink>
+        </li>
+        <li>
+          <RouterLink to="/collaboration">合作案例
+            <span>Cooperation</span>
+          </RouterLink>
+        </li>
+        <li>
+          <RouterLink to="/inquiry">咨询
+            <span>Consultation</span>
+          </RouterLink>
+        </li>
+        <li>
+          <RouterLink to="/contact">联系方式
+            <span>Contact</span>
+
+          </RouterLink>
+        </li>
+        <li>
+          <RouterLink to="/productInfo">技术资料PDF
+            <p>Documentation</p>
+          </RouterLink>
         </li>
         <!-- <li v-for="item in categoryStore.categoryList" :key="item.id">
           <RouterLink active-class="active" :to="`/category/${item.id}`">{{
@@ -37,19 +84,19 @@ const categoryStore = useCategoryStore()
         </li> -->
       </ul>
 
-      <div class="right">
+      <!-- <div class="right">
         <RouterLink to="/">品牌</RouterLink>
         <RouterLink to="/">专题</RouterLink>
-      </div>
+      </div> -->
     </div>
     <div>
       <div class="search-box">
-      <i class="iconfont icon-search"></i>
-      <div class="input-container">
-        <input type="text" placeholder="搜索品名,型号" />
-        <button type="button">搜索</button>
+        <i class="iconfont icon-search"></i>
+        <div class="input-container">
+          <input type="text" placeholder="搜索品名,型号" />
+          <button type="button">搜索</button>
+        </div>
       </div>
-    </div>
     </div>
   </div>
 </template>
@@ -109,51 +156,51 @@ const categoryStore = useCategoryStore()
 }
 
 .search-box {
-    height: 32px;
-    margin: 0 20% 25px;
-    position: relative;
-    border: 1px solid #0083ff;
-    border-radius: 5px;
+  height: 32px;
+  margin: 0 20% 25px;
+  position: relative;
+  border: 1px solid #0083ff;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  /* 垂直居中 */
+  padding: 0 5px;
+
+  .icon-search {
+    font-size: 18px;
+    color: #0093ff;
+  }
+
+  .input-container {
     display: flex;
     align-items: center;
-    /* 垂直居中 */
-    padding: 0 5px;
-
-    .icon-search {
-      font-size: 18px;
-      color: #0093ff;
-    }
-
-    .input-container {
-      display: flex;
-      align-items: center;
-      width: 100%;
-      margin-left: 8px;
-    }
-
-    input {
-      flex: 8;
-      padding-left: 5px;
-      height: 100%;
-      border: none;
-      outline: none;
-      color: #0093ff;
-      font-size: 14px;
-      border-radius: 5px 0 0 5px;
-    }
-
-    button {
-      flex: 2;
-      height: 100%;
-      border: none;
-      outline: none;
-      background-color: #0083ff;
-      color: white;
-      font-size: 18px;
-      cursor: pointer;
-      border-radius: 0 5px 5px 0;
-    }
+    width: 100%;
+    margin-left: 8px;
   }
+
+  input {
+    flex: 8;
+    padding-left: 5px;
+    height: 100%;
+    border: none;
+    outline: none;
+    color: #0093ff;
+    font-size: 14px;
+    border-radius: 5px 0 0 5px;
+  }
+
+  button {
+    flex: 2;
+    height: 100%;
+    border: none;
+    outline: none;
+    background-color: #0083ff;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 0 5px 5px 0;
+  }
+}
 
 .app-header-nav {
   width: 1020px;
@@ -167,8 +214,7 @@ const categoryStore = useCategoryStore()
     text-align: center;
 
     a {
-      font-size: 16px;
-      // line-height: 32px;
+      font-size: 12px;
       height: 32px;
       display: inline-block;
 

@@ -32,6 +32,41 @@ const news = [
     name: '三菱 通风机扇EWF-25ASA EWF-35CTA40A2'
   },
   {
+    id: 3,
+    img:'../src/assets/images/0001.jpg',
+
+    time: '2023/8/18 14:58:58',
+    name: '三菱 通风机扇EWF-25ASA EWF-35CTA40A2'
+  },
+  {
+    id: 3,
+    img:'../src/assets/images/0001.jpg',
+
+    time: '2023/8/18 14:58:58',
+    name: '三菱 通风机扇EWF-25ASA EWF-35CTA40A2'
+  },
+  {
+    id: 3,
+    img:'../src/assets/images/0001.jpg',
+
+    time: '2023/8/18 14:58:58',
+    name: '三菱 通风机扇EWF-25ASA EWF-35CTA40A2'
+  },
+  {
+    id: 3,
+    img:'../src/assets/images/0001.jpg',
+
+    time: '2023/8/18 14:58:58',
+    name: '三菱 通风机扇EWF-25ASA EWF-35CTA40A2'
+  },
+  {
+    id: 3,
+    img:'../src/assets/images/0001.jpg',
+
+    time: '2023/8/18 14:58:58',
+    name: '三菱 通风机扇EWF-25ASA EWF-35CTA40A2'
+  },
+  {
     id: 4,
     img:'../src/assets/images/0001.jpg',
 
@@ -49,7 +84,7 @@ const news = [
           <!-- <img :src="item.img" alt="产品图片"> -->
           <div class="news-info">
             <h3>{{ item.name }}</h3>
-            <p>{{ item.time }}</p>
+            <!-- <p>{{ item.time }}</p> -->
           </div>
         </li>
       </ul>
@@ -60,15 +95,15 @@ const news = [
 <style scoped lang="scss">
 .news-list {
   display: flex;
+  width: 48%;
+
   flex-direction: column;
-  gap: 20px;
-  padding: 20px;
+  gap: 5px;
 
   li {
     background-color: #ffffff;
-    border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    padding: 15px;
+    padding: 6px;
     transition: all 0.3s ease;
 
     &:hover {
@@ -78,9 +113,8 @@ const news = [
 
     .news-info {
       h3 {
-        font-size: 18px;
+        font-size: 16px;
         color: #333;
-        margin-bottom: 10px;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;

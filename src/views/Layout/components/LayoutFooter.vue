@@ -1,60 +1,31 @@
 <template>
   <footer class="app_footer">
     <!-- 联系我们 -->
-    <div class="contact">
-      <div class="container" style="text-align: center;">
-        <dl>
-          <dt>客户服务</dt>
-          <dd><i class="iconfont icon-kefu"></i> 在线客服</dd>
-          <dd><i class="iconfont icon-question"></i> 问题反馈</dd>
-        </dl>
-        <!-- <dl>
-          <dt>关注我们</dt>
-          <dd><i class="iconfont icon-weixin"></i> 公众号</dd>
-          <dd><i class="iconfont icon-weibo"></i> 微博</dd>
-        </dl>
-        <dl>
-          <dt>下载APP</dt>
-          <dd class="qrcode"><img src="@/assets/images/qrcode.jpg" /></dd>
-          <dd class="download">
-            <span>扫描二维码</span>
-            <span>立马下载APP</span>
-            <a href="javascript:;">下载页面</a>
-          </dd>
-        </dl> -->
-        <dl>
-
-        </dl>
-      </div>
-    </div>
+   
     <!-- 其它 -->
     <div class="extra">
       <div class="container">
 
         <div class="slogan">
           <div>
-            <p>热线电话：</p>
-            <p>025-84659345 86626095</p>
+            <p>热线电话：025-84659345 86626095</p>
+            <p>公司传真：(86)025-84299530</p>
+            <p>公司邮箱：qc84659345@163.com</p>
+
           </div>
           <div>
-            <p>公司传真：</p>
-            <p>(86)025-84299530</p>
+            <p></p>
           </div>
           <div>
-            <p>公司邮箱：</p>
-            <p>qc84659345@163.com</p>
+            <p></p>
+          </div>
+          
+          <div>
+            <p></p>
           </div>
           <div>
-            <p>公司备案号：</p>
-            <p>苏ICP备10202193号</p>
-          </div>
-          <div>
-            <p>地址：</p>
-            <p>南京市玄武区柳营100号</p>
-          </div>
-          <div>
-            <p>邮政编码：</p>
-            <p>210008</p>
+            <p>地址：南京市玄武区柳营100号</p>
+            <p>邮政编码：210008</p>
           </div>
 
 
@@ -72,7 +43,10 @@
             <RouterLink to="/qa/purchase-release">采购发布</RouterLink>
             <RouterLink to="/qa/business-hours">营业时间</RouterLink>
           </p>
+          
           <p>国内机电产品及日本原装进口工业设备仪器仪表专业供应商：南京千川机电有限公司</p>
+          <p>苏ICP备10202193号</p>
+
           <p>CopyRight © 南京千川</p>
         </div>
       </div>
