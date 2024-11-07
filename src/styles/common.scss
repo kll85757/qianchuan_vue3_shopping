@@ -122,14 +122,13 @@ ul {
   margin: 10px;
 }
 .typesBlock{
-
+  height: auto;
   display: flex;
   align-items: center; /* 垂直居中 */
   justify-content: center; /* 水平居中 (可选) */
 }
 .typesBox{
   padding-bottom: 25px!important;
-
 }
 .typesBox {
   list-style: none; /* 去掉默认的列表样式 */
@@ -147,6 +146,10 @@ ul {
   flex: 1 1 200px; /* 使单元格可缩放，设置最小宽度 */
   text-align: center; /* 内容居中 */
   background-color: #f9f9f9; /* 背景色 (可选) */
+}
+
+.typesBlock:hover{
+  box-shadow: 0 0 22px #b5dbff;
 }
 
 .typesBlock a {

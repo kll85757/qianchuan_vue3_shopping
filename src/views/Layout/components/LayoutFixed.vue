@@ -37,7 +37,7 @@ const categoryStore = useCategoryStore()
           </RouterLink>
         </li>
         <li>
-          <RouterLink to="/category/1005000">产品相册
+          <RouterLink to="/album">产品相册
             <span>Ablum</span>
           </RouterLink>
         </li>

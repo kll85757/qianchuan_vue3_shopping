@@ -69,3 +69,17 @@ export function getCategoryList(data) {
   });
 }
 
+// 相册列表
+export function getAlbumList(data) {
+  return request({
+    url: '/album/page',
+    method: 'post',
+    data: {
+      pageNo: data.pageNo || 1,
+      pageSize: data.pageSize || 10,
+      condition: {
+        name: data.name || ''
+      }
+    }
+  });
+}

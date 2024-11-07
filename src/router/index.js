@@ -8,6 +8,7 @@ import Detail from '@/views/Detail/index.vue'
 import New from '@/views/New/index.vue'
 import CartList from '@/views/CartList/index.vue'
 import BrandList from '@/views/BrandList/index.vue'
+import Album from '@/views/Album/index.vue'
 import News from '@/views/News/index.vue'
 import AF from '@/views/AfterShopping/index.vue'
 import Checkout from '@/views/Checkout/index.vue'
@@ -51,6 +52,10 @@ const router = createRouter({
         {
           path: 'brandList',
           component: BrandList
+        },
+        {
+          path: 'album',
+          component: Album
         },
         {
           path: 'news',

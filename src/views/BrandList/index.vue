@@ -1,111 +1,220 @@
-<script setup>
-import { ref, onMounted, computed } from 'vue'
-import { getBrandList } from '@/apis/category'
-
-// 定义品牌列表数据
-const brands = ref([])
-
-// 获取所有品牌
-const fetchAllBrands = async () => {
-  let pageNo = 1
-  let hasMoreData = true
-
-  // 循环请求直到获取完所有数据
-  while (hasMoreData) {
-    try {
-      const res = await getBrandList({
-        pageNo: pageNo,
-        pageSize: 10, // 每页获取10条数据
-        title: '',
-        categoryCode: '',
-        status: '1'
-      })
-
-      const currentPageBrands = res.data.records
-
-      // 将当前页的数据合并到总品牌列表中
-      brands.value = [...brands.value, ...currentPageBrands]
-
-      // 如果当前页的数据小于 pageSize，说明没有更多数据了
-      if (currentPageBrands.length < 10) {
-        hasMoreData = false
-      }
-
-      // 增加页码以获取下一页数据
-      pageNo++
-
-    } catch (error) {
-      console.error('获取品牌列表失败:', error)
-      hasMoreData = false
-    }
-  }
-}
-
-// 页面加载时获取所有品牌
-onMounted(fetchAllBrands)
-
-// 将品牌分组以便在页面中展示
-const groupedBrands = computed(() => {
-  const result = []
-  for (let i = 0; i < brands.value.length; i += 4) {
-    result.push(brands.value.slice(i, i + 4))
-  }
-  return result
-})
-</script>
-
 <template>
-  <div class="xtx-cart-page">
-    <div class="container m-top-20">
-      <div class="cart">
-        <el-row
-          :gutter="20"
-          v-for="(row, rowIndex) in groupedBrands"
-          :key="rowIndex"
-        >
-          <el-col :span="6" v-for="(brand, colIndex) in row" :key="colIndex">
-            <div class="grid-content ep-bg-purple brandBox">
-              <!-- 显示品牌名称和图片 -->
-              <img v-if="brand.imageUrl" :src="brand.imageUrl" alt="brand.name" />
-              <p class="brandName">{{ brand.name }}</p>
-            </div>
-          </el-col>
-        </el-row>
-      </div>
+  <div class="brand-page">
+    <!-- 字母导航 -->
+    <div class="alphabet-nav">
+      <button v-for="letter in alphabet" :key="letter" @click="scrollTo(letter)">
+        {{ letter }}
+      </button>
+    </div>
+
+    <!-- 品牌列表 -->
+    <div v-for="(brands, letter) in sortedBrands" :key="letter" :id="`section-${letter}`">
+      <h2 class="topTitle">{{ letter }}</h2>
+      <ul class="brandListLg">
+        <li v-for="brand in brands" :key="brand.id">{{ brand.name }}</li>
+      </ul>
     </div>
   </div>
 </template>
 
-<style scoped lang="scss">
-.xtx-cart-page {
-  margin-top: 20px;
+<script>
+import { ref, computed, onMounted } from 'vue';
+import { getBrandList } from '@/apis/category';
+import pinyin from 'pinyin';
 
-  .cart {
-    background: #fff;
-    color: #666;
 
-    .brandBox {
-      text-align: center;
-      padding: 10px;
-      border: 1px solid #f0f0f0;
-      border-radius: 8px;
-      box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
-      transition: all 0.3s ease;
-      img {
-        width: 100px;
-        height: 100px;
-        margin-bottom: 10px;
+export default {
+  setup() {
+    const alphabet = ref('ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split(''));
+    const brands = ref([]);
+
+    // 在页面初始化时调用 getBrandList
+    onMounted(async () => {
+      try {
+        const response = await getBrandList({
+          pageNo: 1,
+          pageSize: 100, // 设置合适的数量，或加载所有品牌
+          condition: {
+            title: '',
+            categoryCode: '',
+            status: '1'
+          }
+        });
+        brands.value = response.data.records || []; // 假设返回的数据在 response.data 中
+        console.log('品牌列表:', brands.value);
+      } catch (error) {
+        console.error('获取品牌列表出错:', error);
       }
-      .brandName {
-        font-size: 16px;
-        font-weight: 500;
-      }
-    }
+    });
 
-    .brandBox:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
-    }
+    // 将品牌按拼音首字母分组并排序
+    const sortedBrands = computed(() => {
+      const brandGroups = {};
+
+      // 初始化每个字母的组
+      alphabet.value.forEach(letter => {
+        brandGroups[letter] = [];
+      });
+      brandGroups['#'] = []; // 数字和其他字符组
+
+      // 设置汉字排序规则
+      const collator = new Intl.Collator('zh-Hans-CN', { sensitivity: 'base' });
+
+      // 将品牌按拼音首字母分组
+      brands.value.forEach(brand => {
+        const firstChar = brand.name[0];
+        let initialLetter;
+
+        // 如果品牌名称是汉字，使用拼音首字母
+        if (/[\u4e00-\u9fa5]/.test(firstChar)) {
+          // 获取品牌名称的拼音首字母，拼音库会返回首字母大写
+          initialLetter = pinyin(brand.name, { style: pinyin.STYLE_FIRST_LETTER, heteronym: false })[0][0].toUpperCase();
+        } else if (firstChar.match(/[A-Za-z]/)) {
+          // 如果是字母，直接使用字母
+          initialLetter = firstChar.toUpperCase();
+        } else {
+          // 否则归为 # 组
+          initialLetter = '#';
+        }
+
+        // 将品牌添加到对应的组
+        if (alphabet.value.includes(initialLetter)) {
+          brandGroups[initialLetter].push(brand);
+        } else {
+          brandGroups['#'].push(brand);
+        }
+      });
+
+      // 对每个组进行排序
+      Object.keys(brandGroups).forEach(letter => {
+        brandGroups[letter].sort((a, b) => collator.compare(a.name, b.name));
+      });
+
+      return brandGroups;
+    });
+
+    // 将品牌按字母分组并排序
+    // const sortedBrands = computed(() => {
+    //   const brandGroups = {};
+
+    //   // 初始化每个字母的组
+    //   alphabet.value.forEach(letter => {
+    //     brandGroups[letter] = [];
+    //   });
+    //   brandGroups['#'] = []; // 数字和其他字符组
+
+    //   // 将品牌按首字母分组
+    //   brands.value.forEach(brand => {
+    //     const firstChar = brand.name[0].toUpperCase();
+    //     if (alphabet.value.includes(firstChar)) {
+    //       brandGroups[firstChar].push(brand);
+    //     } else {
+    //       brandGroups['#'].push(brand); // 其他字符归为 #
+    //     }
+    //   });
+
+    //   // 对每个组进行排序
+    //   Object.keys(brandGroups).forEach(letter => {
+    //     brandGroups[letter].sort((a, b) => a.name.localeCompare(b.name));
+    //   });
+
+    //   return brandGroups;
+    // });
+
+    // 滚动到对应字母部分
+    const scrollTo = letter => {
+      const section = document.getElementById(`section-${letter}`);
+      if (section) {
+        section.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    };
+
+    return {
+      alphabet,
+      sortedBrands,
+      scrollTo
+    };
   }
+};
+</script>
+
+<style scoped>
+.brand-page {
+  max-width: 900px;
+  margin: auto;
+  padding: 20px;
 }
+
+/* 字母导航样式 */
+.alphabet-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.alphabet-nav button {
+  margin: 5px;
+  padding: 8px 12px;
+  font-size: 14px;
+  border: none;
+  background-color: #0083ff;
+  color: white;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.alphabet-nav button:hover {
+  background-color: #005bb5;
+}
+
+/* 品牌列表样式 */
+h2 {
+  font-size: 18px;
+  color: #333;
+  margin-top: 20px;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  margin: 5px 0;
+  font-size: 16px;
+  color: #555;
+}
+
+.topTitle{
+  text-align: start;
+  border-bottom: #005bb5;
+  margin-top: 25px;
+  color: #0080ff;
+}
+
+.brandListLg{
+  position: relative;
+
+}
+
+.brandListLg > li{
+  display: inline-block;
+  width: auto;
+  margin-right: 15px;
+  border-bottom: 1px solid #bbb;
+}
+
+.brandListLg > li:hover{
+  display: inline-block;
+  width: auto;
+  margin-right: 15px;
+  border-bottom: 1px solid #4fadff;
+  cursor: pointer;
+  color: #0083ff;
+}
+
+
+
 </style>

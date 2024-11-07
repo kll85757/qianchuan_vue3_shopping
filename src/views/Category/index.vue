@@ -1,9 +1,46 @@
 <script setup>
 import GoodsItem from '@/components/GoodsItem.vue'
 import { useBanner } from './composables/useBanner'
-import { useCategory } from './composables/useCategory'
+// import { useCategory } from './composables/useCategory'
+import { getAlbumList } from '@/apis/category'
 
-const { categoryData } = useCategory()
+let albumLists = []
+
+async function getAllAlbums() {
+  let allAlbums = [];
+  let pageNo = 1;
+  let pageSize = 10; // 可以根据实际情况调整每页获取的数量
+  let hasMore = true;
+
+  while (hasMore) {
+    try {
+      const response = await getAlbumList({ pageNo, pageSize });
+      const albums = response.data.records || response.data; // 根据接口返回数据的结构获取相册列表
+
+      allAlbums = allAlbums.concat(albums);
+
+      hasMore = albums.length === pageSize; // 判断是否还有下一页数据
+      pageNo++;
+    } catch (error) {
+      console.error("获取相册列表出错:", error);
+      hasMore = false; // 出现错误时停止循环
+    }
+  }
+
+  return allAlbums;
+}
+
+// 调用 getAllAlbums 函数获取所有相册
+getAllAlbums()
+  .then(albums => {
+    albumLists = albums;
+    console.log("所有相册:", albums);
+  })
+  .catch(error => {
+    console.error("获取所有相册出错:", error);
+  });
+
+// const { categoryData } = useCategory()
 const { bannerList } = useBanner()
 
 const types = [
@@ -42,11 +79,11 @@ const types = [
         </el-carousel>
       </div> -->
       <div class="sub-list">
-        <h3>全部分类</h3>
+        <h3>全部相册</h3>
         <ul class="typesBox">
-          <li class="typesBlock" v-for="i in types" :key="i.grade2">
-            <RouterLink  :to="`/category/sub/${i.grade2}`">
-              <!-- <img :src="i.picture" /> -->
+          <li class="typesBlock" v-for="i in albumLists" :key="i.id">
+            <RouterLink  :to="`/category/sub/${i.id}`">
+              <img style="width: 250px;height: 160px;" :src="i.picture" />
               <p>{{ i.name }}</p>
             </RouterLink>
           </li>
@@ -97,7 +134,7 @@ const types = [
 
       li {
         width: 168px;
-        height: 160px;
+        // height: 160px;
 
         a {
           text-align: center;
