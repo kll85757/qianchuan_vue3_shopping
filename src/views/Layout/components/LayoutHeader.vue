@@ -49,7 +49,7 @@ const categoryStore = useCategoryStore()
           </RouterLink>
         </li>
         <li>
-          <RouterLink to="/companySummary">公司概要
+          <RouterLink to="/qa/about">公司概要
             <span>Company</span>
           </RouterLink>
         </li>
