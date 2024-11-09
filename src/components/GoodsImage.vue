@@ -8,11 +8,12 @@ defineProps({
     default: () => []
   }
 })
-// 实现鼠标移入交互，小图切换大图显示
-const curIndex = ref(0)
-const mouseEnterFn = (i) => {
-  curIndex.value = i
-}
+
+
+const curIndex = ref(0) // 定义 curIndex 变量并设置初始值为 0
+
+
+
 // 放大镜效果实现
 // 1.获取鼠标相对位置
 const target = ref()
@@ -57,6 +58,9 @@ watch([elementX, elementY, isOutside], () => {
   positionX.value = -left.value * 2
   positionY.value = -top.value * 2
 })
+
+// 将 console.log 语句移到 setup 函数内部
+// console.log('imageList:', imageList) 
 </script>
 
 <template>
@@ -72,7 +76,7 @@ watch([elementX, elementY, isOutside], () => {
       <li
         v-for="(img, i) in imageList"
         :key="i"
-        @mouseenter="mouseEnterFn(i)"
+        @mouseover="curIndex = i"  
         :class="{ active: i === curIndex }"
       >
         <img :src="img" alt="" />
@@ -90,7 +94,7 @@ watch([elementX, elementY, isOutside], () => {
       ]"
       v-show="!isOutside"
     ></div>
-  </div>
+ </div>
 </template>
 
 <style scoped lang="scss">
@@ -115,7 +119,6 @@ watch([elementX, elementY, isOutside], () => {
     z-index: 500;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     background-repeat: no-repeat;
-    // 背景图:盒子的大小 = 2:1  将来控制背景图的移动来实现放大的效果查看 background-position
     background-size: 800px 800px;
     background-color: #f8f8f8;
   }
@@ -124,7 +127,6 @@ watch([elementX, elementY, isOutside], () => {
     width: 200px;
     height: 200px;
     background: rgba(0, 0, 0, 0.2);
-    // 绝对定位 然后跟随咱们鼠标控制left和top属性就可以让滑块移动起来
     left: 0;
     top: 0;
     position: absolute;
