@@ -29,7 +29,8 @@ const categoryStore = useCategoryStore()
           <RouterLink to="/AF">售后服务</RouterLink>
         </li> -->
         <li>
-          <RouterLink to="/category/sub/14">产品中心
+          <RouterLink to="/category/sub/14">
+            产品目录
             <span>Product</span>
           </RouterLink>
         </li>

@@ -1,25 +1,7 @@
 <template>
   <div class="xtx-goods-page">
     <div class="container">
-      <div class="category-container">
-        <div class="category-title">
-          全部分类
-        </div>
-        <ul class="category-list">
-          <li v-for="(category, index) in categories" :key="index" class="category-item"
-            @mouseover="showSubCategories(index)" @mouseleave="hideSubCategories(index)">
-            <div class="category-name">
-              {{ category.name }}
-              <i class="el-icon-arrow-right" :class="{ 'el-icon-arrow-bottom': category.showSubCategories }"></i>
-            </div>
-            <ul v-if="category.showSubCategories" class="sub-category-list">
-              <li v-for="(item, subIndex) in category.menu" :key="subIndex">
-                <a href="#" class="sub-category-item">{{ item.name }}</a>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </div>
+
       <div class="bread-container">
         <el-breadcrumb separator=">">
           <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
@@ -29,7 +11,38 @@
         </el-breadcrumb>
       </div>
 
+
+
       <div class="info-container">
+        <div class="category-container">
+          <div class="category-title">
+            全部分类
+          </div>
+          <ul class="category-list">
+            <li v-for="(category, index) in categories" :key="index" class="category-item"
+              @mouseover="showSubCategories(index)" @mouseleave="hideSubCategories(index)">
+              <div class="category-name">
+                {{ category.name }}
+                <i class="el-icon-arrow-right" :class="{ 'el-icon-arrow-bottom': category.showSubCategories }"></i>
+              </div>
+              <ul v-if="category.showSubCategories" class="sub-category-list">
+                <li v-for="(item, subIndex) in category.menu" :key="subIndex">
+                  <a href="#" class="sub-category-item">{{ item.name }}</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+
+        <!-- 全部品牌的右侧栏 -->
+        <aside class="all-brands">
+          <h3>全部品牌</h3>
+          <ul class="brand-list">
+            <li v-for="brand in brands" :key="brand.id">
+              {{ brand.name }}
+            </li>
+          </ul>
+        </aside>
         <div>
           <div class="goods-info">
             <div class="media">
@@ -42,6 +55,7 @@
               <!-- 替换品牌 -->
               <p class="g-desc">品牌 - {{ good.brandCode || '无品牌信息' }}</p>
               <!-- 替换型号 -->
+              <p class="g-model">产品编号: {{ good.categoryCode || '无型号信息' }}</p>
               <p class="g-model">型号: {{ good.categoryCode || '无型号信息' }}</p>
               <!-- 替换价格 -->
               <p class="g-price">
@@ -66,6 +80,8 @@
                 <!-- <el-button size="large" class="btn" @click="add">下单</el-button> -->
                 <el-button size="large" type="success" class="btn" @click="showAskPriceDialog">询价 Request
                   Quote</el-button>
+                <el-button size="large" type="" class="btn">查看全部
+                  Check All</el-button>
               </div>
             </div>
           </div>
@@ -114,6 +130,8 @@
         </el-tabs>
       </div>
 
+
+
       <!-- 询价弹窗 -->
       <el-dialog v-model="askPriceDialogVisible" title="联系方式" width="300px">
         <div class="ask-price-dialog">
@@ -131,11 +149,34 @@
 
 <script setup>
 import { getDetailAPI } from '@/apis/detail'
-import { ref } from 'vue'
+import { ref, computed, onMounted } from 'vue';
 import { useRoute } from 'vue-router'
 import GoodsSku from '@/components/GoodsSku.vue'
 import { useCartStore } from '@/stores/index'
 import { ElMessage } from 'element-plus'
+import { getBrandList } from '@/apis/category';
+
+const brands = ref([]);
+
+// 在页面初始化时调用 getBrandList
+onMounted(async () => {
+  try {
+    const response = await getBrandList({
+      pageNo: 1,
+      pageSize: 100, // 设置合适的数量，或加载所有品牌
+      condition: {
+        title: '',
+        categoryCode: '',
+        status: '1'
+      }
+    });
+    brands.value = response.data.records || []; // 假设返回的数据在 response.data 中
+    console.log('品牌列表:', brands.value);
+  } catch (error) {
+    console.error('获取品牌列表出错:', error);
+  }
+});
+
 
 const good = ref({})
 const route = useRoute()
@@ -254,7 +295,7 @@ const categories = ref([
 ]);
 
 const showSubCategories = (index) => {
-  console.log('111',index,categories.value)
+  console.log('111', index, categories.value)
   categories.value[index].showSubCategories = true
 }
 
@@ -519,6 +560,8 @@ const handleTabClick = (tab) => {
   position: fixed;
   left: 25px;
   z-index: 999;
+  top: 150px;
+
 }
 
 .category-title {
@@ -537,7 +580,8 @@ const handleTabClick = (tab) => {
   position: relative;
   margin-bottom: 5px;
 }
-.category-item :hover{
+
+.category-item :hover {
   color: rgb(0, 140, 255);
   font-weight: bold;
   background-color: #009dff;
@@ -573,7 +617,8 @@ const handleTabClick = (tab) => {
   top: 100%;
   left: 0;
   z-index: 10;
-  display: flex; /* 设置二级菜单横向排列 */
+  display: flex;
+  /* 设置二级菜单横向排列 */
   position: absolute;
   left: 210px;
   top: 0;
@@ -587,17 +632,55 @@ const handleTabClick = (tab) => {
   /* 移除 display: block */
   display: inline-block;
   flex: 1;
-  width:auto;
+  width: auto;
   border: 1px solid #eee;
   padding: 5px 10px;
   color: #666;
   background-color: #fff;
   text-decoration: none;
-  margin-right: 10px; /* 添加二级菜单项之间的间距 */
+  margin-right: 10px;
+  /* 添加二级菜单项之间的间距 */
 }
 
 .sub-category-item:hover {
   background-color: #f0f0f0;
   color: rgb(0, 140, 255);
+}
+
+
+.main-content {
+  flex: 3;
+  padding: 20px;
+}
+
+.all-brands {
+  flex: 1;
+  padding: 20px;
+  border: 1px solid #ddd;
+  background-color: #f9f9f9;
+  position: fixed;
+  right: 50px;
+  width: 250px;
+  top: 150px;
+}
+
+.all-brands h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.brand-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.brand-list li {
+  margin: 5px 0;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.brand-list li:hover {
+  text-decoration: underline;
 }
 </style>
