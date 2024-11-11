@@ -12,7 +12,7 @@ const props = defineProps({
 // 1代表24小时热销榜 2代表周热销榜
 // 3代表总热销榜 可以使用type去适配title和数据列表
 const titleMap = {
-  1: '相关推荐',
+  1: '相关新闻',
   2: '关联产品'
 }
 const title = computed(() => titleMap[props.type])
@@ -53,7 +53,7 @@ const goodsInfoDemo = [
 
     info: '特長：R-5と同一の面体で|装着安定性に優れる4点式しめひもを採用'
   },
- 
+
 ]
 
 // 获取热榜数据
@@ -73,17 +73,20 @@ getHotList()
   <div class="goods-hot">
     <h3>{{ title }}</h3>
     <!-- 商品区块 -->
-    <RouterLink
-      :to="`/detail/${item.id}`"
-      class="goods-item"
-      v-for="item in goodsInfoDemo"
-      :key="item.id"
-    >
+    <div v-if="type == 1">
+      <RouterLink :to="`/detail/${item.id}`" class="goods-item" v-for="item in goodsInfoDemo" :key="item.id">
+      <p class="name ellipsis">{{ item.name }}</p>
+      <p class="desc ellipsis">{{ item.info }}</p>
+    </RouterLink>
+    </div>
+    <div v-if="type == 2">
+      <RouterLink :to="`/detail/${item.id}`" class="goods-item" v-for="item in goodsInfoDemo" :key="item.id">
       <img :src="item.picture" alt="" />
       <p class="name ellipsis">{{ item.name }}</p>
       <p class="desc ellipsis">{{ item.info }}</p>
-      <!-- <p class="price">&yen;{{ item.price }}</p> -->
     </RouterLink>
+    </div>
+    
   </div>
 </template>
 

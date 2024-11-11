@@ -82,8 +82,14 @@ const add = () => {
                 <div class="goods-detail">
                   <h2>
                     供应日本SANWA路由器 LAN-SWHP501BK</h2>
-                    <p class="newsTime">
-                      发表时间：2023/9/7 19:36:11</p>
+					<div style="text-align: end;">
+						<span class="newsTime">点击次数：1022222</span>
+
+                    <span class="clicktime">
+                      发表时间：2023/9/7 19:36:11</span>
+					</div>
+
+
 
                     <div class="newsshow2">
             <p>
@@ -1107,8 +1113,9 @@ const add = () => {
             <div class="goods-aside">
               <!-- 24小时热榜 -->
               <goods-hot :type="1"></goods-hot>
-              <!-- 周热榜 -->
               <goods-hot :type="2"></goods-hot>
+              <!-- 周热榜 -->
+              <!-- <goods-hot :type="2"></goods-hot> -->
             </div>
           </div>
         </div>

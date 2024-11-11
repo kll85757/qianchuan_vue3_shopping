@@ -10,6 +10,8 @@ import CartList from '@/views/CartList/index.vue'
 import BrandList from '@/views/BrandList/index.vue'
 import Album from '@/views/Album/index.vue'
 import News from '@/views/News/index.vue'
+import askOffer from '@/views/askOffer/index.vue'
+import fileList from '@/views/fileList/index.vue'
 import AF from '@/views/AfterShopping/index.vue'
 import Checkout from '@/views/Checkout/index.vue'
 import Pay from '@/views/Pay/index.vue'
@@ -64,6 +66,14 @@ const router = createRouter({
         {
           path: 'AF',
           component: AF
+        },
+        {
+          path: 'askOffer',
+          component: askOffer
+        },
+        {
+          path: 'fileList',
+          component: fileList
         },
         {
           path: 'checkout',

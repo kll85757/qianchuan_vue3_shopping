@@ -193,11 +193,13 @@ const load = async () => {
   <div class="container">
 
     <div class="category-nav">
+      <h2 class="type_title">
+        <el-icon><Memo /></el-icon>
+        <span>全部分类</span>
+      </h2>
       <ul>
-        <li v-for="category in mainCategories" :key="category.id">
-          <button @click="scrollToCategory(category.id)">
+        <li v-for="category in mainCategories" @click="scrollToCategory(category.id)" :key="category.id">
             {{ category.name }}
-          </button>
         </li>
       </ul>
     </div>
@@ -412,4 +414,65 @@ const load = async () => {
     // }
   }
 }
+.category-nav {
+  padding: 10px;
+  background-color: #3399ff; /* Light background */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for a modern touch */
+}
+
+.category-nav > ul {
+  display: flex;
+  flex-wrap: wrap; /* Allows items to wrap to the next line */
+  gap: 10px; /* Adds spacing between items */
+  justify-content: center; /* Centers the items */
+  list-style-type: none; /* Removes default bullets */
+  padding: 0;
+  margin: 0;
+}
+
+.category-nav > ul > li {
+  padding: 10px 20px;
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px; /* Rounds corners for a modern look */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Adds subtle depth */
+  transition: transform 0.2s, box-shadow 0.2s; /* Smooth hover transition */
+  font-size: 16px;
+  cursor: pointer;
+  text-align: center;
+  flex: 1 1 auto; /* Allows the items to be auto-sized */
+}
+
+.category-nav > ul > li > button {
+  background-color: #007bff00;
+  border: 0;
+}
+
+.category-nav > ul > li:hover {
+  transform: translateY(-3px); /* Slight lift on hover */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Deepens shadow on hover */
+  background-color: #e9f5ff; /* Light hover color */
+  color: #007bff;
+}
+
+.type_title{
+  text-align: start;
+  color: #fff;
+  padding: 5px;
+  line-height: 25px;
+  height: 25px;
+}
+.type_title > i{
+  display: inline-block;
+  line-height: 45px;
+  height: 45px;
+
+}
+.type_title > span{
+  display: inline-block;
+  line-height: 25px;
+  height: 25px;
+
+}
+
 </style>

@@ -60,7 +60,7 @@ const categoryStore = useCategoryStore()
           </RouterLink>
         </li>
         <li>
-          <RouterLink to="/inquiry">咨询
+          <RouterLink to="/askOffer">咨询
             <span>Consultation</span>
           </RouterLink>
         </li>
@@ -71,7 +71,7 @@ const categoryStore = useCategoryStore()
           </RouterLink>
         </li>
         <li>
-          <RouterLink to="/productInfo">技术资料PDF
+          <RouterLink to="/fileList">技术资料PDF
             <p>Documentation</p>
           </RouterLink>
         </li>
