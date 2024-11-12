@@ -43,5 +43,8 @@ export default defineConfig({
         `,
       }
     }
+  },
+  server: {
+    host: true // 允许局域网访问
   }
 })
