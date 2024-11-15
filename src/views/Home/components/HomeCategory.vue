@@ -6,25 +6,25 @@ import { getCategoryList } from '@/apis/category'
 
 // 获取所有品牌
 const fetchAllCategory = async () => {
- 
+
 
   getCategoryList({
-      pageNo: 1,
-      pageSize: 10,
-      condition: {
-        code: '',
-        name: '',
-        parentCode: '',
-        groupCode: ''
-      }
-    })
+    pageNo: 1,
+    pageSize: 10,
+    condition: {
+      code: '',
+      name: '',
+      parentCode: '',
+      groupCode: ''
+    }
+  })
     .then(response => {
       console.log('分类列表:', response);
     })
     .catch(error => {
       console.error('获取分类列表出错:', error);
     });
-  
+
 }
 
 // 页面加载时获取所有品牌
@@ -142,7 +142,7 @@ const categories = [
       { id: 13.2, name: '素材(切板・プレート・丸棒・パイプ・シート)' }
     ]
   },
-  
+
 ]
 
 </script>
@@ -152,20 +152,16 @@ const categories = [
     <ul class="menu">
       <li v-for="item in categories" :key="item.id">
         <RouterLink to="/">{{ item.name }}</RouterLink>
-        <!-- <RouterLink v-for="i in item.menu" :key="i.id" to="/">{{
-          i.name
-        }}</RouterLink> -->
+
         <div class="layer">
           <ul>
             <li v-for="i in item.menu" :key="i.id">
               <RouterLink :to="`/detail/${i.id}`">
-                <!-- <img :src="i.picture" alt="" /> -->
                 <div class="info">
                   <p class="name ellipsis-2">
                     {{ i.name }}
                   </p>
-                  <!-- <p class="desc ellipsis">{{ i.desc }}</p>
-                  <p class="price"><i>¥</i>{{ i.price }}</p> -->
+
                 </div>
               </RouterLink>
             </li>

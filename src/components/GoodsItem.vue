@@ -2,7 +2,7 @@
 defineProps({
   good: {
     type: Object,
-    define: () => {}
+    define: () => { }
   }
 })
 </script>
@@ -17,11 +17,14 @@ defineProps({
 <style lang="scss" scoped>
 .goods-item {
   display: block;
-  width: 100%; /* 确保宽度为100% */
-  height: 100%; /* 确保高度为100% */
+  width: 100%;
+  /* 确保宽度为100% */
+  height: 100%;
+  /* 确保高度为100% */
   text-align: center;
   transition: all 0.5s;
-  padding: 10px; /* 可选：添加内边距以增加内容的舒适度 */
+  padding: 10px;
+  /* 可选：添加内边距以增加内容的舒适度 */
 
   &:hover {
     transform: translate3d(0, -3px, 0);

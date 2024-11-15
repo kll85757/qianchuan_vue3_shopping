@@ -14,7 +14,7 @@
 
 
       <div class="info-container">
-        <div class="category-container">
+        <!-- <div class="category-container">
           <div class="category-title">
             全部分类
           </div>
@@ -32,17 +32,17 @@
               </ul>
             </li>
           </ul>
-        </div>
+        </div> -->
 
         <!-- 全部品牌的右侧栏 -->
-        <aside class="all-brands">
+        <!-- <aside class="all-brands">
           <h3>全部品牌</h3>
           <ul class="brand-list">
             <li v-for="brand in brands" :key="brand.id">
               {{ brand.name }}
             </li>
           </ul>
-        </aside>
+        </aside> -->
         <div>
           <div class="goods-info">
             <div class="media">
