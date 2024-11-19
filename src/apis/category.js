@@ -25,10 +25,9 @@ export const getSubCategoryAPI = (id) => {
     params: { id }
   })
 }
-// 分类基础列表数据获取
+// 产品列表接口
 export const getSubCategoryListAPI = (data) => {
   return request({
-    // url: '/category/goods/temporary',
     url: '/product/page',
     method: 'POST',
     data

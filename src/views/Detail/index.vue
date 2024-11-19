@@ -313,9 +313,9 @@ const getGoods = async () => {
 
   // 判断图片是否为空，如果为空则使用默认图片
   // 使用接口返回的 accessPictures 属性
-  // console.log('aaaaaa',good.value.accessPictures)
-  const imageList = good.value.accessPictures && good.value.accessPictures.length > 0 ? good.value.accessPictures : [defaultImage]
-  good.value.imageList = imageList
+  console.log('aaaaaa',good.value.pictures)
+  const imageList = (good.value.pictures && good.value.pictures.length > 0) ? good.value.pictures : [defaultImage];
+  good.value.imageList = imageList;
   console.log('aaaaaa', imageList)
 }
 

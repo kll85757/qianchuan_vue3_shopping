@@ -156,7 +156,7 @@ const categories = [
         <div class="layer">
           <ul>
             <li v-for="i in item.menu" :key="i.id">
-              <RouterLink :to="`/detail/${i.id}`">
+              <RouterLink :to="`listByType`">
                 <div class="info">
                   <p class="name ellipsis-2">
                     {{ i.name }}

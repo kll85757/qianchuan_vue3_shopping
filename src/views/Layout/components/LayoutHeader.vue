@@ -1,9 +1,84 @@
 <script setup>
 import { RouterLink } from 'vue-router'
+import { ref } from 'vue'
+import { useScroll } from '@vueuse/core'
 import { useCategoryStore } from '@/stores'
-import LayoutCart from '@/views/Layout/components/LayoutCart.vue'
-// 获取pinia中的数据
+import { useRouter } from 'vue-router'
+
+import { getSubCategoryListAPI } from '@/apis/category'
+
+// 滚动事件
+const { y } = useScroll(window)
+
+// 获取 Pinia 中的数据
 const categoryStore = useCategoryStore()
+
+// 搜索框的输入值
+const searchText = ref('')
+
+const router = useRouter()
+
+
+// 搜索结果数据
+const searchResults = ref([])
+
+// 是否正在加载
+const isLoading = ref(false)
+
+// 是否显示弹窗
+const showModal = ref(false)
+
+// 搜索方法
+// const handleSearch = async () => {
+//   if (!searchText.value.trim()) {
+//     return
+//   }
+//   isLoading.value = true
+//   try {
+//     const params = {
+//       pageNo: 1,
+//       pageSize: 10, // 根据需求调整分页大小
+//       condition: {
+//         title: searchText.value.trim(),
+//         status: '1',
+//       },
+//     }
+//     const response = await getSubCategoryListAPI(params)
+//     searchResults.value = response.data?.records || [] // 假设返回数据在 `data.records` 中
+//     showModal.value = true // 显示弹窗
+//   } catch (error) {
+//     console.error('搜索失败:', error)
+//   } finally {
+//     isLoading.value = false
+//   }
+// }
+
+const handleSearch = async () => {
+  // if (!searchText.value.trim()) {
+  //   return
+  // }
+  isLoading.value = true
+  try {
+    // 模拟调用接口或其他操作（如果需要）
+    // const params = { ... }
+    // const response = await getSubCategoryListAPI(params)
+
+    // 跳转到搜索结果页面并传递查询参数
+    router.push({
+      path: 'search',
+      query: { searchText: searchText.value.trim() },
+    })
+  } catch (error) {
+    console.error('搜索失败:', error)
+  } finally {
+    isLoading.value = false
+  }
+}
+
+// 关闭弹窗
+const closeModal = () => {
+  showModal.value = false
+}
 </script>
 
 <template>
@@ -93,11 +168,32 @@ const categoryStore = useCategoryStore()
     <div class="search-box">
       <i class="iconfont icon-search"></i>
       <div class="input-container">
-        <input type="text" placeholder="搜索品名,型号" />
-        <button type="button">搜索</button>
+        <input type="text" placeholder="搜索品名,型号" v-model="searchText" />
+        <button type="button" @click="handleSearch" :disabled="isLoading">
+          {{ isLoading ? '搜索中...' : '搜索' }}
+        </button>
       </div>
     </div>
   </header>
+
+  <!-- 弹窗 -->
+  <div v-if="showModal" class="modal-backdrop" @click="closeModal">
+    <div class="modal" @click.stop>
+      <div class="modal-header">
+        <h3>搜索结果</h3>
+        <button @click="closeModal" class="close-btn">×</button>
+      </div>
+      <div class="modal-body">
+        <ul v-if="searchResults.length > 0" class="results-list">
+          <li v-for="item in searchResults" :key="item.id">
+            <img :src="item.image" alt="Product Image" />
+            <p>{{ item.title }}</p>
+          </li>
+        </ul>
+        <p v-else>未找到与 "{{ searchText }}" 相关的产品。</p>
+      </div>
+    </div>
+  </div>
 </template>
 
 <style scoped lang="scss">
@@ -226,6 +322,121 @@ const categoryStore = useCategoryStore()
         font-family: Arial;
       }
     }
+  }
+}
+
+
+.search-results {
+  margin-top: 20px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+
+  ul {
+    list-style: none;
+    padding: 0;
+
+    li {
+      margin: 5px 0;
+      font-size: 14px;
+    }
+  }
+}
+
+.no-results {
+  margin-top: 20px;
+  color: #999;
+  font-size: 14px;
+  text-align: center;
+}
+
+
+/* 背景遮罩 */
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* 弹窗样式 */
+.modal {
+  background-color: #fff;
+  width: 500px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  border-bottom: 1px solid #ddd;
+  background-color: #f5f5f5;
+
+  h3 {
+    margin: 0;
+    font-size: 16px;
+  }
+
+  .close-btn {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: #333;
+
+    &:hover {
+      color: red;
+    }
+  }
+}
+
+.modal-body {
+  padding: 20px;
+
+  .results-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+
+    li {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100px;
+
+      img {
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+        border-radius: 5px;
+        margin-bottom: 5px;
+      }
+
+      p {
+        font-size: 12px;
+        text-align: center;
+        margin: 0;
+      }
+    }
+  }
+
+  p {
+    text-align: center;
+    font-size: 14px;
+    color: #666;
   }
 }
 </style>

@@ -1,16 +1,26 @@
 <script setup>
-defineProps({
+import { onMounted } from 'vue';
+
+const props = defineProps({
   good: {
     type: Object,
-    define: () => { }
+    required: true // 确保这个属性是必需的
   }
-})
+});
+
+// 在组件挂载时打印 good 对象
+onMounted(() => {
+  console.log('Good object:', props.good);
+});
+
 </script>
 <template>
   <RouterLink :to="`/detail/${good.id}`" class="goods-item">
-    <img v-if="good.picture" v-img-lazy="good.picture" src="../assets/images/0001.jpg" alt="" />
-    <p class="name ellipsis">{{ good.title }}</p>
-    <p class="desc ellipsis">{{ good.description }}</p>
+    <img v-if="props.good.pictures && props.good.pictures.length" v-img-lazy="props.good.pictures[0]"
+      src="../assets/images/0001.jpg" alt="" />
+    <img v-else alt="" />
+    <p class="name ellipsis">{{ props.good.title }}</p>
+    <p class="desc ellipsis">{{ props.good.description }}</p>
     <!-- <p class="price">&yen;{{ good.price }}</p> -->
   </RouterLink>
 </template>

@@ -9,6 +9,8 @@ import New from '@/views/New/index.vue'
 import CartList from '@/views/CartList/index.vue'
 import BrandList from '@/views/BrandList/index.vue'
 import Album from '@/views/Album/index.vue'
+import search from '@/views/Layout/components/SearchResultPage.vue'
+import listByType from '@/views/Home/components/ProductPageByType.vue'
 import News from '@/views/News/index.vue'
 import askOffer from '@/views/askOffer/index.vue'
 import fileList from '@/views/fileList/index.vue'
@@ -46,6 +48,14 @@ const router = createRouter({
         {
           path: 'new/:id',
           component: New
+        },
+        {
+          path: 'search',
+          component: search
+        },
+        {
+          path: 'listByType',
+          component: listByType
         },
         {
           path: 'cartlist',
