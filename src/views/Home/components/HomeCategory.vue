@@ -59,7 +59,6 @@ const categories = [
       { id: 1.10, name: '梱包用品' }
     ]
   },
-  // { id: 2, name: '工事用品' },
   {
     id: 3, name: '作业工具', menu: [
       { id: 3.1, name: '作業工具' },
