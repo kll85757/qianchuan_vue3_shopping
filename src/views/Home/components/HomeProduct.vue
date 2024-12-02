@@ -37,15 +37,13 @@ const fetchAllBrands = async () => {
 
       // 增加页码以获取下一页数据
       pageNo++
-
     } catch (error) {
       console.error('获取品牌列表失败:', error)
       hasMoreData = false
     }
   }
 
-  brands.value = brands.value.slice(0, 10);
-
+  brands.value = brands.value.slice(0, 10)
 }
 
 // 页面加载时获取所有品牌
@@ -86,8 +84,7 @@ const news = [
     id: 6,
     title: '实验室安全管理新规出台，保障研究人员安全',
     date: '2023-06-28'
-  },
-
+  }
 ]
 // 获取指定页数和条数的产品数据
 const fetchProductData = async (page, targetList) => {
@@ -121,36 +118,33 @@ onMounted(async () => {
     <HomePanel title="产品大纲">
       <template #main>
         <div class="box">
-          <div class="spMenu">
+          <!-- <div class="spMenu">
             <el-tabs v-model="activeTab">
               <el-tab-pane label="接着剂" name="category">
-                <!-- 分类内容 -->
               </el-tab-pane>
               <el-tab-pane label="密封胶" name="brand">
-                <!-- 品牌内容 -->
               </el-tab-pane>
               <el-tab-pane label="环氧树脂胶" name="brand">
-                <!-- 品牌内容 -->
               </el-tab-pane>
               <el-tab-pane label="木工修补材料" name="brand">
-                <!-- 品牌内容 -->
               </el-tab-pane>
               <el-tab-pane label="密封胶2" name="brand">
-                <!-- 品牌内容 -->
               </el-tab-pane>
             </el-tabs>
             <div v-if="activeTab === 'category'">
-              <!-- 分类内容 -->
             </div>
             <div v-if="activeTab === 'brand'">
-              <!-- 品牌内容 -->
             </div>
-          </div>
+          </div> -->
           <RouterLink class="cover" to="/">
             <!-- <img v-img-lazy="'../src/assets/images/p01.png'" /> -->
             <ul class="menu">
               <li class="menuItem" v-for="item in brands" :key="item.id">
-                <RouterLink to="/">{{ item.name }}</RouterLink>
+                <RouterLink
+                  :to="`/listByBrand?brandCode=${item.code}&brandName=${item.name}`"
+                >
+                  {{ item.name }}
+                </RouterLink>
                 <div class="layer"></div>
                 <ul>
                   <li v-for="i in item.goods" :key="i.id">
@@ -171,7 +165,6 @@ onMounted(async () => {
               <ul class="">
                 <li class="menuItem2" v-for="item in news" :key="item.id">
                   <RouterLink to="/">{{ item.title }}</RouterLink>
-
                 </li>
               </ul>
             </ul>
@@ -188,40 +181,6 @@ onMounted(async () => {
       </template>
     </HomePanel>
   </div>
-
-  <!-- 第三页产品数据 -->
-  <!-- <HomePanel title="热卖产品">
-      <template #main>
-        <div class="box">
-          <RouterLink class="cover" to="/">
-            <img v-img-lazy="'../src/assets/images/p01.png'" />
-            <strong class="label"></strong>
-          </RouterLink>
-          <ul class="goods-list">
-            <li v-for="good in goodsProductPage3" :key="good.id">
-              <GoodsItem :good="good"></GoodsItem>
-            </li>
-          </ul>
-        </div>
-      </template>
-    </HomePanel> -->
-
-  <!-- 第四页产品数据 -->
-  <!-- <HomePanel title="库存产品">
-      <template #main>
-        <div class="box">
-          <RouterLink class="cover" to="/">
-            <img v-img-lazy="'../src/assets/images/p01.png'" />
-            <strong class="label"></strong>
-          </RouterLink>
-          <ul class="goods-list">
-            <li v-for="good in goodsProductPage4" :key="good.id">
-              <GoodsItem :good="good"></GoodsItem>
-            </li>
-          </ul>
-        </div>
-      </template>
-    </HomePanel> -->
 </template>
 
 <style scoped lang="scss">
@@ -370,8 +329,6 @@ onMounted(async () => {
       height: auto;
       /* 高度自动，确保撑满内容 */
     }
-
-
   }
 }
 </style>

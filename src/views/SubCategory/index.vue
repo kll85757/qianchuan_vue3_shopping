@@ -173,19 +173,7 @@ const scrollToCategory = (id) => {
   }
 }
 
-// 列表筛选实现
-const tabChange = () => {
-  reqData.value.pageNum = 1
-  disabled.value = false // 重置加载状态
-  getGoodList() // 重新获取数据
-}
 
-// 商品列表无限加载逻辑
-const load = async () => {
-  // 递增页码请求下一页
-  reqData.value.pageNum++
-  await getGoodList(true) // 请求下一页数据
-}
 </script>
 
 
@@ -207,20 +195,18 @@ const load = async () => {
     <ul class="menu">
       <li v-for="item in categories" :key="item.id" :id="`category-${item.id}`">
         <RouterLink to="/">{{ item.name }}</RouterLink>
-        <!-- <RouterLink v-for="i in item.menu" :key="i.id" to="/">{{
-          i.name
-        }}</RouterLink> -->
+  
         <div class="layer">
           <ul>
             <li v-for="i in item.menu" :key="i.id">
-              <!-- <img :src="i.picture" alt="" /> -->
-              <div class="info">
-                <p class="name ellipsis-2">
-                  {{ i.name }}
-                </p>
-                <!-- <p class="desc ellipsis">{{ i.desc }}</p>
-                  <p class="price"><i>¥</i>{{ i.price }}</p> -->
-              </div>
+             
+              <RouterLink
+                :to="`/listByType?categoryCode=${i.id}&categoryName=${i.name}`"
+              >
+                <div class="info">
+                  <p class="name ellipsis-2">{{ i.name }}</p>
+                </div>
+              </RouterLink>
             </li>
           </ul>
         </div>
@@ -228,9 +214,6 @@ const load = async () => {
     </ul>
     <div class="sub-container">
 
-      <!-- <div class="body" :infinite-scroll-disabled="disabled" infinite-scroll-immediate-check="false">
-        <goods-item v-for="good in goodList" :key="good.id" :good="good"></goods-item>
-      </div> -->
     </div>
   </div>
 </template>

@@ -11,6 +11,7 @@ import BrandList from '@/views/BrandList/index.vue'
 import Album from '@/views/Album/index.vue'
 import search from '@/views/Layout/components/SearchResultPage.vue'
 import listByType from '@/views/Home/components/ProductPageByType.vue'
+import listByBrand from '@/views/Home/components/ProductPageByBrand.vue'
 import News from '@/views/News/index.vue'
 import askOffer from '@/views/askOffer/index.vue'
 import fileList from '@/views/fileList/index.vue'
@@ -56,6 +57,10 @@ const router = createRouter({
         {
           path: 'listByType',
           component: listByType
+        },
+        {
+          path: 'listByBrand',
+          component: listByBrand
         },
         {
           path: 'cartlist',

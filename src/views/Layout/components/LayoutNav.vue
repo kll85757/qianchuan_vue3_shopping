@@ -45,9 +45,9 @@ const confirm = () => {
           </li>
         </template>
         <template v-else>
-          <li>
+          <!-- <li>
             <RouterLink :to="'/login'">请先登录</RouterLink>
-          </li>
+          </li> -->
           <li><a href="javascript:;">帮助中心</a></li>
           <li><a href="javascript:;">关于我们</a></li>
         </template>

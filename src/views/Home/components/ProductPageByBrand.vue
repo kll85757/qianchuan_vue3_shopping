@@ -1,7 +1,7 @@
 <script setup>
 import { ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
-import { getSubCategoryListAPI } from '@/apis/category'
+import { getSubCategoryListAPI } from '@/apis/category' // 假设接口一致
 
 // 搜索结果数据
 const searchResults = ref([])
@@ -12,13 +12,13 @@ const isLoading = ref(false)
 // 获取路由对象
 const route = useRoute()
 
-// 从路由参数获取 categoryCode
-const categoryCode = ref(route.query.categoryCode || '')
-const categoryName = ref(route.query.categoryName || '')
+// 从路由参数获取 brandCode 和 brandName
+const brandCode = ref(route.query.brandCode || '')
+const brandName = ref(route.query.brandName || '')
 
 // 获取搜索结果
 const fetchSearchResults = async () => {
-    if (!categoryCode.value.trim()) {
+    if (!brandCode.value.trim()) {
         searchResults.value = [] // 清空之前的结果
         return
     }
@@ -28,7 +28,7 @@ const fetchSearchResults = async () => {
             pageNo: 1,
             pageSize: 10, // 根据需求调整分页大小
             condition: {
-                categoryCode: categoryCode.value.trim(),
+                brandCode: brandCode.value.trim(),
                 status: '1',
             },
         }
@@ -43,20 +43,22 @@ const fetchSearchResults = async () => {
 
 // 监听路由参数变化，触发重新搜索
 watch(
-    () => route.query.categoryCode,
-    (newCategoryCode) => {
-        categoryCode.value = newCategoryCode || ''
+    () => [route.query.brandCode, route.query.brandName],
+    ([newBrandCode, newBrandName]) => {
+        brandCode.value = newBrandCode || ''
+        brandName.value = newBrandName || ''
         fetchSearchResults()
     },
     { immediate: true } // 初次加载也触发
 )
 </script>
 
+
 <template>
   <div class="search-results-page">
     <header class="page-header">
-        <h1>{{ categoryName }} </h1>
-              <p v-if="categoryCode">关于分类 "{{ categoryName }}{{ categoryCode }}" 的产品列表</p>
+      <h1>{{ brandName }} 产品</h1>
+      <p v-if="brandCode">关于品牌 "{{ brandName }}" 的产品列表</p>
     </header>
 
     <div class="results-container">
@@ -78,12 +80,13 @@ watch(
       </template>
 
       <p v-else-if="!isLoading" class="no-results">
-        未找到与分类 "{{ categoryName }}" 相关的产品。
+        未找到与品牌 "{{ brandName }}" 相关的产品。
       </p>
       <p v-if="isLoading" class="loading-message">正在加载数据，请稍候...</p>
     </div>
   </div>
 </template>
+
 
 <style scoped lang="scss">
 .search-results-page {
