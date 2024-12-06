@@ -1,88 +1,49 @@
 <script setup>
-import { getNewGoodsAPI } from '@/apis/home'
-import { ref, onMounted } from 'vue'
-import HomePanel from './HomePanel.vue'
+import { ref, onMounted } from 'vue';
+import { getNewsList } from '@/apis/category' // Assuming getNewsList is in '@/apis/api'
+import HomePanel from './HomePanel.vue';
+import { useRouter } from 'vue-router';
 
-const newGoodsList = ref([])
-const getNewGoods = async () => {
-  // const res = await getNewGoodsAPI()
-  // newGoodsList.value = res.result
-}
-onMounted(() => getNewGoods())
+const newsList = ref([]);
+const router = useRouter();
 
-const news = [
-  {
-    id: 1,
-    img: '../src/assets/images/0001.jpg',
-    time: '2023/9/15 10:23:45',
-    name: '全球钢铁需求预计2024年将增长2.3%'
-  },
-  {
-    id: 2,
-    img: '../src/assets/images/0001.jpg',
-    time: '2023/9/12 14:30:18',
-    name: '新能源汽车带动锂电池原材料价格上涨'
-  },
-  {
-    id: 3,
-    img: '../src/assets/images/0001.jpg',
-    time: '2023/9/8 09:15:33',
-    name: '半导体芯片短缺影响工业自动化设备生产'
-  },
-  {
-    id: 3,
-    img: '../src/assets/images/0001.jpg',
-    time: '2023/9/8 09:15:33',
-    name: '半导体芯片短缺影响工业自动化设备生产'
-  },
-  {
-    id: 3,
-    img: '../src/assets/images/0001.jpg',
-    time: '2023/9/8 09:15:33',
-    name: '半导体芯片短缺影响工业自动化设备生产'
-  },
-  {
-    id: 3,
-    img: '../src/assets/images/0001.jpg',
-    time: '2023/9/8 09:15:33',
-    name: '半导体芯片短缺影响工业自动化设备生产'
-  },
-  {
-    id: 3,
-    img: '../src/assets/images/0001.jpg',
-    time: '2023/9/8 09:15:33',
-    name: '半导体芯片短缺影响工业自动化设备生产'
-  },
-  {
-    id: 3,
-    img: '../src/assets/images/0001.jpg',
-    time: '2023/9/8 09:15:33',
-    name: '半导体芯片短缺影响工业自动化设备生产'
-  },
-  {
-    id: 4,
-    img: '../src/assets/images/0001.jpg',
-    time: '2023/9/5 16:45:22',
-    name: '石油价格波动引发化工原料成本上升'
-  },
+// Fetch news list
+const fetchNewsList = async () => {
+  try {
+    const response = await getNewsList({ pageNo: 1, pageSize: 10 });
+    if (response.success && response.data.records) {
+      // 筛选 keyWords 包含 "01" 的新闻
+      newsList.value = response.data.records.filter(item => item.keyWords?.includes('02'));
+    } else {
+      console.error(response.msg || '获取新闻列表失败');
+    }
+  } catch (error) {
+    console.error('获取新闻列表出错:', error);
+  }
+};
+// Navigate to news details
+const navigateToDetails = id => {
+  router.push(`/news/${id}`); // Ensure a route exists for `/news/:id`
+};
 
-]</script>
+onMounted(() => fetchNewsList());
+</script>
+
 
 <template>
   <HomePanel title="新闻资讯" subTitle="掌握最新行业动态">
     <template #main>
       <ul class="news-list">
-        <li v-for="item in news" :key="item.id">
+        <li v-for="item in newsList" :key="item.id" @click="navigateToDetails(item.id)">
           <div class="news-info">
-            <h3>{{ item.name }}</h3>
-
-
+            <h3>{{ item.title }}</h3>
           </div>
         </li>
       </ul>
     </template>
   </HomePanel>
 </template>
+
 
 <style scoped lang="scss">
 .news-list {

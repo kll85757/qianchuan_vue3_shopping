@@ -13,6 +13,7 @@ import search from '@/views/Layout/components/SearchResultPage.vue'
 import listByType from '@/views/Home/components/ProductPageByType.vue'
 import listByBrand from '@/views/Home/components/ProductPageByBrand.vue'
 import News from '@/views/News/index.vue'
+import NewsPage from '@/views/New/index.vue'
 import askOffer from '@/views/askOffer/index.vue'
 import fileList from '@/views/fileList/index.vue'
 import AF from '@/views/AfterShopping/index.vue'
@@ -78,6 +79,10 @@ const router = createRouter({
           path: 'news',
           component: News
         },
+        {
+          path: '/news/:id',
+          component: NewsPage
+        },        
         {
           path: 'AF',
           component: AF

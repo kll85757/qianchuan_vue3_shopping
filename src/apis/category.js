@@ -82,3 +82,29 @@ export function getAlbumList(data) {
     }
   });
 }
+
+
+// 新闻模块
+export function getNewsList(data) {
+  return request({
+    url: '/news/page',
+    method: 'post',
+    data: {
+      pageNo: data.pageNo || 1,
+      pageSize: data.pageSize || 10,
+      condition: {
+        title: data.title || null,
+        categoryCode: data.categoryCode || null,
+        status: data.status || null
+      }
+    }
+  });
+}
+
+export function getNews(id) {
+  return request({
+    url: `/news/${id}`,
+    method: 'get'
+  });
+}
+

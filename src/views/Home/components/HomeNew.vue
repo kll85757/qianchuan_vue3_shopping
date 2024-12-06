@@ -1,96 +1,50 @@
 <script setup>
-import { getNewGoodsAPI } from '@/apis/home'
-import { ref, onMounted } from 'vue'
-import HomePanel from './HomePanel.vue'
+import { ref, onMounted } from 'vue';
+import { getNewsList } from '@/apis/category' // Assuming getNewsList is in '@/apis/api'
+import HomePanel from './HomePanel.vue';
+import { useRouter } from 'vue-router';
 
-const newGoodsList = ref([])
-const getNewGoods = async () => {
-  // const res = await getNewGoodsAPI()
-  // newGoodsList.value = res.result
-}
-onMounted(() => getNewGoods())
+const newsList = ref([]);
+const router = useRouter();
 
-const news = [
-  {
-    id: 1,
-    img:'../src/assets/images/0001.jpg',
-    time: '2023/9/7 19:36:11',
-    name: '供应日本SANWA路由器 LAN-SWHP501BK'
-  },
-  {
-    id: 2,
-    img:'../src/assets/images/0001.jpg',
-
-    time: '2023/8/29 15:20:22',
-    name: '日本原装进口IODATA显示器 GigaCrysta EX-LDGCWF29...'
-  },
-  {
-    id: 3,
-    img:'../src/assets/images/0001.jpg',
-
-    time: '2023/8/18 14:58:58',
-    name: '三菱 通风机扇EWF-25ASA EWF-35CTA40A2'
-  },
-  {
-    id: 3,
-    img:'../src/assets/images/0001.jpg',
-
-    time: '2023/8/18 14:58:58',
-    name: '三菱 通风机扇EWF-25ASA EWF-35CTA40A2'
-  },
-  {
-    id: 3,
-    img:'../src/assets/images/0001.jpg',
-
-    time: '2023/8/18 14:58:58',
-    name: '三菱 通风机扇EWF-25ASA EWF-35CTA40A2'
-  },
-  {
-    id: 3,
-    img:'../src/assets/images/0001.jpg',
-
-    time: '2023/8/18 14:58:58',
-    name: '三菱 通风机扇EWF-25ASA EWF-35CTA40A2'
-  },
-  {
-    id: 3,
-    img:'../src/assets/images/0001.jpg',
-
-    time: '2023/8/18 14:58:58',
-    name: '三菱 通风机扇EWF-25ASA EWF-35CTA40A2'
-  },
-  {
-    id: 3,
-    img:'../src/assets/images/0001.jpg',
-
-    time: '2023/8/18 14:58:58',
-    name: '三菱 通风机扇EWF-25ASA EWF-35CTA40A2'
-  },
-  {
-    id: 4,
-    img:'../src/assets/images/0001.jpg',
-
-    time: '2023/7/17 21:23:47',
-    name: '一级代理日本三菱PL形 保险丝 PL-G LINK 0.6KV T2A'
+// Fetch news list
+const fetchNewsList = async () => {
+  try {
+    const response = await getNewsList({ pageNo: 1, pageSize: 10 });
+    if (response.success && response.data.records) {
+      // 筛选 keyWords 包含 "01" 的新闻
+      newsList.value = response.data.records.filter(item => item.keyWords?.includes('01'));
+    } else {
+      console.error(response.msg || '获取新闻列表失败');
+    }
+  } catch (error) {
+    console.error('获取新闻列表出错:', error);
   }
-]
+};
+
+// Navigate to news details
+const navigateToDetails = id => {
+  router.push(`/news/${id}`); // Ensure a route exists for `/news/:id`
+};
+
+onMounted(() => fetchNewsList());
 </script>
+
 
 <template>
   <HomePanel title="产品资讯" subTitle="行业一手最新产品">
     <template #main>
       <ul class="news-list">
-        <li v-for="item in news" :key="item.id">
-          <!-- <img :src="item.img" alt="产品图片"> -->
+        <li v-for="item in newsList" :key="item.id" @click="navigateToDetails(item.id)">
           <div class="news-info">
-            <h3>{{ item.name }}</h3>
-            <!-- <p>{{ item.time }}</p> -->
+            <h3>{{ item.title }}</h3>
           </div>
         </li>
       </ul>
     </template>
   </HomePanel>
 </template>
+
 
 <style scoped lang="scss">
 .news-list {
