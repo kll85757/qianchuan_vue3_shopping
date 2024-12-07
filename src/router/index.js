@@ -9,6 +9,7 @@ import New from '@/views/New/index.vue'
 import CartList from '@/views/CartList/index.vue'
 import BrandList from '@/views/BrandList/index.vue'
 import Album from '@/views/Album/index.vue'
+import AlbumDetail from '@/views/Album/detail.vue'
 import search from '@/views/Layout/components/SearchResultPage.vue'
 import listByType from '@/views/Home/components/ProductPageByType.vue'
 import listByBrand from '@/views/Home/components/ProductPageByBrand.vue'
@@ -74,6 +75,12 @@ const router = createRouter({
         {
           path: 'album',
           component: Album
+        },
+        {
+          path: '/album/:albumId',
+          name: 'AlbumDetail',
+          component: AlbumDetail, // 显示相册详情
+          props: true, // 通过 props 传递 albumId
         },
         {
           path: 'news',

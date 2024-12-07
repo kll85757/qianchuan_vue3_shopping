@@ -83,6 +83,13 @@ export function getAlbumList(data) {
   });
 }
 
+export function getAlbumImages(albumId) {
+  return request({
+    url: `/album/${albumId}`, // Endpoint to fetch images for a specific album
+    method: "get"
+  });
+}
+
 
 // 新闻模块
 export function getNewsList(data) {

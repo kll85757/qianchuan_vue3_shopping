@@ -1,9 +1,10 @@
 <script setup>
 import { ref, onMounted } from 'vue';
-import GoodsItem from '@/components/GoodsItem.vue';
 import { getAlbumList } from '@/apis/category';
+import { useRouter } from 'vue-router';
 
-let albumLists = ref([]); // 初始化为空数组
+const albumLists = ref([]); // 初始化为空数组
+const router = useRouter();
 
 async function getAllAlbums() {
   let allAlbums = [];
@@ -34,21 +35,6 @@ onMounted(() => {
     console.log("所有相册:", albumLists.value); // 验证数据是否加载成功
   });
 });
-
-const types = [
-  { "grade2": "8", "PID": "生産加工用品", "name": "生産加工用品" },
-  { "grade2": "14", "PID": "工事用品", "name": "工事用品" },
-  { "grade2": "27", "PID": "作业工具 ", "name": "作业工具" },
-  { "grade2": "41", "PID": "防护用品", "name": "化工环境安全用品" },
-  { "grade2": "47", "PID": "物流保管用品", "name": "物流保管用品" },
-  { "grade2": "52", "PID": "研究管理用品", "name": "研究管理用品" },
-  { "grade2": "59", "PID": "办公室", "name": "办公用品" },
-  { "grade2": "165", "PID": "科学实验器具", "name": "科学实验器具" },
-  { "grade2": "166", "PID": "季节商品", "name": "季节商品" },
-  { "grade2": "167", "PID": "电脑配件", "name": "电脑配件" },
-  { "grade2": "168", "PID": "家电", "name": "家电" },
-  { "grade2": "173", "PID": "粗糙度比较样块", "name": "粗糙度比较样块" }
-];
 </script>
 
 <template>
@@ -66,11 +52,11 @@ const types = [
         <h3>全部相册</h3>
         <ul class="typesBox">
           <li class="typesBlock" v-for="album in albumLists" :key="album.id">
-            <RouterLink :to="`/category/sub/${album.id}`">
-              <img style="width: 250px; height: 200px;" :src="album.picture" />
+            <a @click.prevent="router.push(`/album/${album.id}`)">
+              <img style="width: 200px; height: 200px;" :src="album.picture" />
               <p>{{ album.name }}</p>
-              <p>{{ album.picNum }}</p>
-            </RouterLink>
+              <p>图片数量: {{ album.picNum }}</p>
+            </a>
           </li>
         </ul>
       </div>
@@ -98,24 +84,41 @@ const types = [
       flex-wrap: wrap;
 
       li {
-        width: 168px;
+        width: 200px;
+        margin: 16px;
+        background: #f9f9f9;
+        border: 1px solid #eee;
+        border-radius: 8px;
+        overflow: hidden;
+        transition: box-shadow 0.2s;
+
+        &:hover {
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
 
         a {
           text-align: center;
           display: block;
+          padding: 16px;
           font-size: 16px;
 
           img {
-            width: 100px;
-            height: 100px;
+            width: 160px;
+            height: 160px;
+            margin: 0 auto 8px;
+            border-radius: 4px;
+            object-fit: cover;
           }
 
           p {
-            line-height: 40px;
+            margin: 0;
+            line-height: 24px;
+            font-size: 14px;
+            color: #333;
           }
 
           &:hover {
-            color: $xtxColor;
+            color: #3a8ee6;
           }
         }
       }
