@@ -1,6 +1,55 @@
 <script setup>
 import { getBannerAPI } from '@/apis/home'
-import { ref } from 'vue'
+import { getNewsList } from '@/apis/category' // Assuming getNewsList is in '@/apis/api'
+
+import { ref, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
+
+const newsList = ref([])
+const newsList2 = ref([])
+
+const router = useRouter()
+
+// Fetch news list
+const fetchNewsList = async () => {
+  try {
+    const response = await getNewsList({ pageNo: 1, pageSize: 10 })
+    if (response.success && response.data.records) {
+      // 筛选 keyWords 包含 "01" 的新闻
+      newsList.value = response.data.records.filter((item) =>
+        item.keyWords?.includes('03')
+      )
+    } else {
+      console.error(response.msg || '获取新闻列表失败')
+    }
+  } catch (error) {
+    console.error('获取新闻列表出错:', error)
+  }
+}
+
+const fetchNewsList2 = async () => {
+  try {
+    const response = await getNewsList({ pageNo: 1, pageSize: 10 })
+    if (response.success && response.data.records) {
+      // 筛选 keyWords 包含 "01" 的新闻
+      newsList2.value = response.data.records.filter((item) =>
+        item.keyWords?.includes('04')
+      )
+    } else {
+      console.error(response.msg || '获取新闻列表失败')
+    }
+  } catch (error) {
+    console.error('获取新闻列表出错:', error)
+  }
+}
+
+// Navigate to news details
+const navigateToDetails = (id) => {
+  router.push(`/news/${id}`) // Ensure a route exists for `/news/:id`
+}
+
+onMounted(() => fetchNewsList())
+onMounted(() => fetchNewsList2())
 
 // 获取轮播图数据
 const bannerList = ref([])
@@ -64,23 +113,42 @@ bannerList.value = [
       <div class="lists-container">
         <div class="list">
           <h3>公司公告</h3>
-          <div>1 - 新产品发布公告</div>
+          <!-- <div>1 - 新产品发布公告</div>
           <div>2 - 年度股东大会通知</div>
-          <div>3 - 公司获得行业大奖</div>
+          <div>3 - 公司获得行业大奖</div> -->
+          <ul class="news-list">
+            <li
+              v-for="item in newsList.slice(0, 3)"
+              :key="item.id"
+              @click="navigateToDetails(item.id)"
+            >
+              <div class="news-info">
+                <h3>{{ item.title }}</h3>
+              </div>
+            </li>
+          </ul>
         </div>
         <div class="list">
           <h3>出货记录</h3>
-          <div>1 - 2023-05-15 发货1000件</div>
-          <div>2 - 2023-05-16 发货1500件</div>
-          <div>3 - 2023-05-17 发货2000件</div>
+          <ul class="news-list">
+            <li
+              v-for="item in newsList2.slice(0, 3)"
+              :key="item.id"
+              @click="navigateToDetails(item.id)"
+            >
+              <div class="news-info">
+                <h3>{{ item.title }}</h3>
+              </div>
+            </li>
+          </ul>
         </div>
-        <div class="list">
+        <!-- <div class="list">
           <h3>库存商品</h3>
           <div>stu901</div>
           <div>vwx234</div>
           <div>yz5678</div>
           <div>yz5678</div>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
@@ -134,10 +202,11 @@ bannerList.value = [
         display: block;
         width: 200px;
         border-bottom: 1px solid #d1d1d1;
-        text-overflow:ellipsis;overflow:hidden;
-        word-break:break-all; 
-        word-wrap:break-word;
-        white-space:nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        word-break: break-all;
+        word-wrap: break-word;
+        white-space: nowrap;
       }
     }
   }

@@ -1,3 +1,33 @@
+<template>
+  <div class="album-detail">
+    <!-- 图片列表 -->
+    <div class="images-grid">
+      <ul class="image-list">
+        <li
+          v-for="(image, index) in albumImages"
+          :key="index"
+          class="image-item"
+          @click="openImageViewer(index)"
+        >
+          <img :src="image" alt="Album Image" />
+        </li>
+      </ul>
+    </div>
+
+    <!-- 自定义图片查看器 -->
+    <div v-show="viewerVisible" class="image-viewer-overlay">
+      <div class="image-viewer-content">
+        <button class="close-button" @click="closeImageViewer">关闭</button>
+        <img :src="albumImages[currentIndex]" alt="Preview Image" />
+        <div class="viewer-controls">
+          <button @click="prevImage" :disabled="currentIndex === 0">上一张</button>
+          <button @click="nextImage" :disabled="currentIndex === albumImages.length - 1">下一张</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
 <script setup>
 import { ref, onMounted } from 'vue';
 import { getAlbumImages } from '@/apis/category';
@@ -5,36 +35,43 @@ import { useRoute } from 'vue-router';
 
 const route = useRoute();
 const albumId = ref(route.params.albumId);
-const albumDetails = ref(null);
-const albumImages = ref([]); // 用于存储相册图片数组
-const viewerVisible = ref(false); // 全屏图片查看器是否可见
-const currentIndex = ref(0); // 当前全屏查看的图片索引
+const albumImages = ref([]);
+const viewerVisible = ref(false);
+const currentIndex = ref(0);
 
+// 获取相册图片
 async function fetchAlbumImages() {
   try {
     const response = await getAlbumImages(albumId.value);
-    albumDetails.value = response.data; // 存储相册详细信息
-
-    // 转换图片字符串为数组
-    if (albumDetails.value.picture) {
-      albumImages.value = albumDetails.value.picture.split(','); // 转换为数组
-    } else {
-      albumImages.value = []; // 如果没有图片，初始化为空数组
-    }
+    albumImages.value = response.data.picture.split(',') || [];
   } catch (error) {
     console.error('获取相册图片出错:', error);
   }
 }
 
-// 打开全屏图片查看器
+// 打开图片查看器
 function openImageViewer(index) {
   currentIndex.value = index;
   viewerVisible.value = true;
 }
 
-// 关闭全屏图片查看器
+// 关闭图片查看器
 function closeImageViewer() {
   viewerVisible.value = false;
+}
+
+// 显示上一张图片
+function prevImage() {
+  if (currentIndex.value > 0) {
+    currentIndex.value--;
+  }
+}
+
+// 显示下一张图片
+function nextImage() {
+  if (currentIndex.value < albumImages.value.length - 1) {
+    currentIndex.value++;
+  }
 }
 
 onMounted(() => {
@@ -42,87 +79,9 @@ onMounted(() => {
 });
 </script>
 
-<template>
-  <div class="album-detail">
-    <div class="container">
-      <!-- 面包屑 -->
-      <div class="bread-container">
-        <el-breadcrumb separator=">">
-          <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-          <el-breadcrumb-item :to="{ path: '/album' }">全部相册</el-breadcrumb-item>
-          <el-breadcrumb-item>{{ albumDetails?.name || '相册详情' }}</el-breadcrumb-item>
-        </el-breadcrumb>
-      </div>
-
-      <!-- 相册信息 -->
-      <div class="album-info">
-        <h3>{{ albumDetails?.name || '相册详情' }}</h3>
-        <p>{{ albumDetails?.description }}</p>
-        <p class="meta-info">
-          <span>图片数量: {{ albumDetails?.picNum }}</span>
-          <span>创建时间: {{ albumDetails?.createTime }}</span>
-        </p>
-      </div>
-
-      <!-- 图片网格 -->
-      <div class="images-grid">
-        <ul class="image-list">
-          <li
-            v-for="(image, index) in albumImages"
-            :key="index"
-            class="image-item"
-            @click="openImageViewer(index)"
-          >
-            <img :src="image" alt="Album Image" />
-          </li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- 全屏图片查看器 -->
-    <el-image-viewer
-      v-model="viewerVisible"
-      :url-list="albumImages"
-      :initial-index="currentIndex"
-      @close="closeImageViewer"
-    />
-  </div>
-</template>
-
-<style scoped lang="scss">
+<style scoped>
 .album-detail {
   font-family: Arial, sans-serif;
-
-  .bread-container {
-    padding: 20px 0;
-  }
-
-  .album-info {
-    text-align: center;
-    margin: 20px 0;
-
-    h3 {
-      font-size: 32px;
-      font-weight: bold;
-      color: #333;
-      margin-bottom: 10px;
-    }
-
-    p {
-      font-size: 16px;
-      color: #555;
-      margin: 5px 0;
-
-      &.meta-info {
-        font-size: 14px;
-        color: #888;
-
-        span {
-          margin-right: 10px;
-        }
-      }
-    }
-  }
 
   .images-grid {
     margin-top: 20px;
@@ -152,6 +111,68 @@ onMounted(() => {
           height: 100%;
           object-fit: cover;
           border-radius: 8px;
+        }
+      }
+    }
+  }
+}
+
+.image-viewer-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+
+  .image-viewer-content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    img {
+      max-width: 80vw;
+      max-height: 80vh;
+      border-radius: 8px;
+    }
+
+    .close-button {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      font-size: 18px;
+      background: rgb(63, 175, 255);
+      color: white;
+      border: none;
+      border-radius: 0;
+      width: 100px;
+      height: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .viewer-controls {
+      margin-top: 10px;
+      display: flex;
+      gap: 10px;
+
+      button {
+        padding: 10px 20px;
+        background: #fff;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        cursor: pointer;
+
+        &:disabled {
+          background: #ddd;
+          cursor: not-allowed;
         }
       }
     }
