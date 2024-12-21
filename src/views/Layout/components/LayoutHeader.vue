@@ -134,11 +134,11 @@ const closeModal = () => {
             <span>Cooperation</span>
           </RouterLink>
         </li>
-        <li>
+        <!-- <li>
           <RouterLink to="/askOffer">咨询
             <span>Consultation</span>
           </RouterLink>
-        </li>
+        </li> -->
         <li>
           <RouterLink to="/contact">联系方式
             <span>Contact</span>
@@ -146,7 +146,7 @@ const closeModal = () => {
           </RouterLink>
         </li>
         <li>
-          <RouterLink to="/fileList">技术资料PDF
+          <RouterLink to="/fileList">技术资料
             <p>Documentation</p>
           </RouterLink>
         </li>

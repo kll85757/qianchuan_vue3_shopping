@@ -10,6 +10,7 @@ import CartList from '@/views/CartList/index.vue'
 import BrandList from '@/views/BrandList/index.vue'
 import Album from '@/views/Album/index.vue'
 import AlbumDetail from '@/views/Album/detail.vue'
+import collaboration from '@/views/Album/collaboration.vue'
 import search from '@/views/Layout/components/SearchResultPage.vue'
 import listByType from '@/views/Home/components/ProductPageByType.vue'
 import listByBrand from '@/views/Home/components/ProductPageByBrand.vue'
@@ -17,6 +18,7 @@ import News from '@/views/News/index.vue'
 import NewsPage from '@/views/New/index.vue'
 import askOffer from '@/views/askOffer/index.vue'
 import fileList from '@/views/fileList/index.vue'
+import contact from '@/views/contact/index.vue'
 import AF from '@/views/AfterShopping/index.vue'
 import Checkout from '@/views/Checkout/index.vue'
 import Pay from '@/views/Pay/index.vue'
@@ -83,6 +85,12 @@ const router = createRouter({
           props: true, // 通过 props 传递 albumId
         },
         {
+          path: '/collaboration',
+          name: 'collaboration',
+          component: collaboration, // 显示相册详情
+          props: true, // 通过 props 传递 albumId
+        },
+        {
           path: 'news',
           component: News
         },
@@ -101,6 +109,10 @@ const router = createRouter({
         {
           path: 'fileList',
           component: fileList
+        },
+        {
+          path: 'contact',
+          component: contact
         },
         {
           path: 'checkout',
