@@ -6,7 +6,8 @@ import router from '@/router'
 // 创建axios实例
 const request = axios.create({
   // baseURL: 'http://pcapi-xiaotuxian-front-devtest.itheima.net',
-  baseURL: 'https://cms.fhmuseum.cn',
+  baseURL: 'https://api.cnnjqc.com',
+
   timeout: 10000 // 请求超时时间
 })
 
