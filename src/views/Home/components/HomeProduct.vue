@@ -90,7 +90,7 @@ const news = [
 const fetchProductData = async (page, targetList) => {
   try {
     const res = await getSubCategoryListAPI({
-      pageNo: page, // 页数
+      // pageNo: page, // 页数
       pageSize: 8, // 每页8条数据
       condition: {
         status: '1', // 只获取发布状态的产品
@@ -118,24 +118,25 @@ onMounted(async () => {
     <HomePanel title="产品大纲">
       <template #main>
         <div class="box">
-          <!-- <div class="spMenu">
+          <div class="spMenu">
             <el-tabs v-model="activeTab">
-              <el-tab-pane label="接着剂" name="category">
-              </el-tab-pane>
-              <el-tab-pane label="密封胶" name="brand">
-              </el-tab-pane>
-              <el-tab-pane label="环氧树脂胶" name="brand">
-              </el-tab-pane>
-              <el-tab-pane label="木工修补材料" name="brand">
-              </el-tab-pane>
-              <el-tab-pane label="密封胶2" name="brand">
+              <el-tab-pane 
+                v-for="brand in brands.slice(0, 7)" 
+                :key="brand.code" 
+                :label="brand.name" 
+                :name="brand.code" 
+                @click="fetchProductData(1, brand.code)">
               </el-tab-pane>
             </el-tabs>
-            <div v-if="activeTab === 'category'">
+            <div v-if="activeTab && activeTab !== 'category'">
+              <ul class="goods-list" v-if="goodsProductPage2.length > 0">
+                <li v-for="good in goodsProductPage2" :key="good.id">
+                  <GoodsItem :good="good"></GoodsItem>
+                </li>
+              </ul>
+            <p v-else>暂时没有商品</p>
             </div>
-            <div v-if="activeTab === 'brand'">
-            </div>
-          </div> -->
+          </div>
           <RouterLink class="cover" to="/">
             <!-- <img v-img-lazy="'../src/assets/images/p01.png'" /> -->
             <ul class="menu">
@@ -145,6 +146,7 @@ onMounted(async () => {
                 >
                   {{ item.name }}
                 </RouterLink>
+                
                 <div class="layer"></div>
                 <ul>
                   <li v-for="i in item.goods" :key="i.id">
@@ -169,11 +171,11 @@ onMounted(async () => {
               </ul>
             </ul>
           </RouterLink>
-          <ul class="goods-list">
+          <!-- <ul class="goods-list">
             <li v-for="good in goodsProductPage2" :key="good.id">
               <GoodsItem :good="good"></GoodsItem>
             </li>
-          </ul>
+          </ul> -->
           <!-- <div class="menu news" style="width: 250px">
 
           </div> -->
@@ -315,7 +317,6 @@ onMounted(async () => {
       /* 居中对齐 */
       margin-top: 50px;
     }
-
     .goods-list li {
       display: inline-block;
       list-style: none;
