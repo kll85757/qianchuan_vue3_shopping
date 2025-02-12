@@ -54,19 +54,6 @@ const goodsProductPage2 = ref([])
 const goodsProductPage3 = ref([])
 const goodsProductPage4 = ref([])
 
-// const brands = [
-//   '三菱',
-//   '富士',
-//   '仓敷化工 KURAKA',
-//   'CEC中央电机',
-//   '兴研|koken',
-//   'ANELVA',
-//   'OMRON',
-//   '东洋技研',
-//   '光阳社',
-//   '七星科学',
-//   'DYNALOY'
-// ]
 
 const categories = [
   { id: 5, name: '接着剂' },
@@ -87,18 +74,23 @@ const news = [
   }
 ]
 // 获取指定页数和条数的产品数据
-const fetchProductData = async (page, targetList) => {
+const fetchProductData = async (page, brandcode, targetList) => {
+  goodsProductPage2.value = []
+
   try {
     const res = await getSubCategoryListAPI({
-      // pageNo: page, // 页数
-      pageSize: 8, // 每页8条数据
+      // pageNo: page, // Include page number
+      pageSize: 50, // 每页8条数据
       condition: {
         status: '1', // 只获取发布状态的产品
+        brandCode: brandcode, // Include brandCode in the condition
         sortField: 'releaseTime', // 按发布时间排序
         sortOrder: 'desc' // 时间倒序
       }
     })
-    targetList.value = res.data.records // 将数据存入目标列表
+    goodsProductPage2.value = res.data.records.slice(0, 8) // 将数据存入目标列表
+    console.log(goodsProductPage2)
+    
   } catch (error) {
     console.error(`获取第${page}页产品列表失败:`, error)
   }
@@ -106,9 +98,7 @@ const fetchProductData = async (page, targetList) => {
 
 // 页面加载时获取第二、第三、第四页的数据
 onMounted(async () => {
-  await fetchProductData(2, goodsProductPage2)
-  await fetchProductData(3, goodsProductPage3)
-  await fetchProductData(4, goodsProductPage4)
+  await fetchProductData(2, '00001', goodsProductPage2)
 })
 </script>
 
@@ -119,23 +109,16 @@ onMounted(async () => {
       <template #main>
         <div class="box">
           <div class="spMenu">
-            <el-tabs v-model="activeTab">
-              <el-tab-pane 
-                v-for="brand in brands.slice(0, 7)" 
-                :key="brand.code" 
-                :label="brand.name" 
-                :name="brand.code" 
-                @click="fetchProductData(1, brand.code)">
-              </el-tab-pane>
-            </el-tabs>
-            <div v-if="activeTab && activeTab !== 'category'">
-              <ul class="goods-list" v-if="goodsProductPage2.length > 0">
-                <li v-for="good in goodsProductPage2" :key="good.id">
-                  <GoodsItem :good="good"></GoodsItem>
-                </li>
-              </ul>
-            <p v-else>暂时没有商品</p>
-            </div>
+              <span
+                class="brandTab"
+                v-for="brand in brands.slice(0, 7)"
+                :key="brand.code"
+                :name="brand.code"
+                @click="fetchProductData(2, brand.code, goodsProductPage2)"
+              >
+              {{ brand.name }}
+              </span>
+           
           </div>
           <RouterLink class="cover" to="/">
             <!-- <img v-img-lazy="'../src/assets/images/p01.png'" /> -->
@@ -146,7 +129,7 @@ onMounted(async () => {
                 >
                   {{ item.name }}
                 </RouterLink>
-                
+
                 <div class="layer"></div>
                 <ul>
                   <li v-for="i in item.goods" :key="i.id">
@@ -171,14 +154,12 @@ onMounted(async () => {
               </ul>
             </ul>
           </RouterLink>
-          <!-- <ul class="goods-list">
+          <ul class="goods-list">
             <li v-for="good in goodsProductPage2" :key="good.id">
               <GoodsItem :good="good"></GoodsItem>
             </li>
-          </ul> -->
-          <!-- <div class="menu news" style="width: 250px">
-
-          </div> -->
+          </ul>
+        
         </div>
       </template>
     </HomePanel>
@@ -215,6 +196,36 @@ onMounted(async () => {
     top: 110px;
     left: 300px;
   }
+
+  .spMenu {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 40px;
+
+  .brandTab {
+    display: inline-block;
+    padding: 10px 16px;
+    font-size: 16px;
+    font-weight: 500;
+    color: #666;
+    background: #ffffff;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    
+    &:hover {
+      background: #e0e0e0;
+    }
+  }
+
+  .brandTab.active {
+    background: #007aff;
+    color: white;
+    font-weight: bold;
+  }
+}
+
 
   .menu {
     padding: 20px;
